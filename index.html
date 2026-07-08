@@ -11,22 +11,33 @@
     <meta name="apple-mobile-web-app-title" content="스마트캘린더">
     
     <!-- 고해상도 벡터 그래픽 SVG 앱 아이콘 데이터셋 (Base64) -->
-    <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjNjM2NmYxIi8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMzczMGEzIi8+PC9saW5lYXJHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9Im0iIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjZmJiZjI0Ii8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjZjU5ZTBiIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3Qgd2lkdGg9IjUxMiIgaGVpZ2h0PSI1MTIiIHJ4PSIxMjAiIGZpbGw9InVybCgjZykiLz48cmVjdCB4PSIwMCIgeT0iMTMwIiB3aWR0aD0iMzEyIiBoZWlnaHQ9IjI4MCIgcng9IjQwIiBmaWxsPSIjZmZmZmZmIi8+PHBhdGggZD0iTTEwMCAxMzBoMzEydjcwSDEwMHoiIGZpbGw9IiM0ZjQ2ZTUiLz48Y2lyY2xlIGN4PSIxNjAiIGN5PSIxMzAiIHI9IjE1IiBmaWxsPSIjZTJlOGYwIi8+PGNpcmNsZSBjeD0iMzUyIiBjeT0iMTMwIiByPSIxNSIgZmlsbD0iI2UyZThmMCIvPjx0ZXh0IHg9IjI1NiIgeT0iMzUwIiBmb250LWZhbWlseT0ic3lzdGVtLXVpLC1hcHBsZS1zeXN0ZW0sc2Fucy1zZXJpZiIgZm9udC13ZWlnaHQ9ImJvbGQiIGZvbnQtc2l6ZT0iMTQwIiBmaWxsPSIjMWUxYjRiIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj4zPC90ZXh0PjxwYXRoIGQ9Ik0zNDAgMjMwYTMwIDMwIDAgMSAwIDMwIDMwIDMwIDMwIDAgMCAxLTMwLTMweiIgZmlsbD0idXJsKCNtKSIvPjwvc3ZnPg==">
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjNjM2NmYxIi8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMzczMGEzIi8+PC9saW5lYXJHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9Im0iIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjZmJiZjI0Ii8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjZjU5ZTBiIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3Qgd2lkdGg9IjUxMiIgaGVpZ2h0PSI1MTIiIHJ4PSIxMjAiIGZpbGw9InVybCgjZykiLz48cmVjdCB4PSIwMCIgeT0iMTMwIiB3aWR0aD0iMzEyIiBoZWlnaHQ9IjI4MCIgcng9IjQwIiBmaWxsPSIjZmZmZmZmIi8+PHBhdGggZD0iTTEwMCAxMzBoMzEydjcwSDEwMHoiIGZpbGw9IiM0ZjQ2ZTUiLz48Y2lyY2xlIGN4PSIxNjAiIGN5PSIxMzAiIHI9IjE1IiBmaWxsPSIjZTJlOGYwIi8+PGNpcmNsZSBjeD0iMzUyIiBjeT0iMTMwIiByPSIxNSIgZmlsbD0iI2UyZThmMCIvPjx0ZXh0IHg9IjI1NiIgeT0iMzUwIiBmb250LWZhbWlseT0ic3lzdGVtLXVpLC1hcHBsZS1zeXN0ZW0sc2Fucy1zZXJpZiIgZm9udC13ZWlnaHQ9ImJvbGQiIGZvbnQtc2l6ZT0iMTQwIiBmaWxsPSIjMWUxYjRiIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj4zPC90ZXh0PjxwYXRoIGQ9Ik0zNDAgMjMwYTMwIDMwIDAgMSAwIDMwIDMwIDMwIDMwIDAgMCAxLTMwLTMweiIgZmlsbD0idXJsKCNtKSIvPjwvc3ZnPg==">
+    <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjNjM2NmYxIi8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMzczMGEzIi8+PC9saW5lYXJHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9Im0iIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjZmJiZjI0Ii8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjZjU5ZTBiIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3Qgd2lkdGg9IjUxMiIgaGVpZ2h0PSI1MTIiIHJ4PSIxMjAiIGZpbGw9InVybCgjZykiLz48cmVjdCB4PSIxMDAiIHk9IjEzMCIgd2lkdGg9IjMxMiIgaGVpZ2h0PSIyODAiIHJ4PSI0MCIgZmlsbD0iI2ZmZmZmZiIvPjxwYXRoIGQ9Ik0xMDAgMTMwaDMxMnY3MEgxMDB6IiBmaWxsPSIjNGY0NmU1Ii8+PGNpcmNsZSBjeD0iMTYwIiBjeT0iMTMwIiByPSIjMTUiIGZpbGw9IiNlMmU4ZjAiLz48Y2lyY2xlIGN4PSIzNTIiIGN5PSIxMzAiIHI9IjE1IiBmaWxsPSIjZTJlOGYwIi8+PHRleHQgeD0iMjU2IiB5PSIzNTAiIGZvbnQtZmFtaWx5PSJzeXN0ZW0tdWksLWFwcGxlLXN5c3RlbSxzYW5zLXNlcmlmIiBmb250LXdlaWdodD0iYm9sZCIgZm9udC1zaXplPSIxNDAiIGZpbGw9IiMxZTFiNGIiIHRleHQtYW5jaG9yPSJtaWRkbGUiPjM8L3RleHQ+PHBhdGggZD0iTTM0MCAyMzBhMzAgzMCAwIDEgMCAzMCAzMCAzMCAzMCAwIDAgMS0zMC0zMHoiIGZpbGw9InVybCgjbSkiLz48L3N2Zz4=">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjNjM2NmYxIi8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMzczMGEzIi8+PC9saW5lYXJHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9Im0iIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjZmJiZjI0Ii8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjZjU5ZTBiIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3Qgd2lkdGg9IjUxMiIgaGVpZ2h0PSI1MTIiIHJ4PSIxMjAiIGZpbGw9InVybCgjZykiLz48cmVjdCB4PSIxMDAiIHk9IjEzMCIgd2lkdGg9IjMxMiIgaGVpZ2h0PSIyODAiIHJ4PSI0MCIgZmlsbD0iI2ZmZmZmZiIvPjxwYXRoIGQ9Ik0xMDAgMTMwaDMxMnY3MEgxMDB6IiBmaWxsPSIjNGY0NmU1Ii8+PGNpcmNsZSBjeD0iMTYwIiBjeT0iMTMwIiByPSIjMTUiIGZpbGw9IiNlMmU4ZjAiLz48Y2lyY2xlIGN4PSIzNTIiIGN5PSIxMzAiIHI9IjE1IiBmaWxsPSIjZTJlOGYwIi8+PHRleHQgeD0iMjU2IiB5PSIzNTAiIGZvbnQtZmFtaWx5PSJzeXN0ZW0tdWksLWFwcGxlLXN5c3RlbSxzYW5zLXNlcmlmIiBmb250LXdlaWdodD0iYm9sZCIgZm9udC1zaXplPSIxNDAiIGZpbGw9IiMxZTFiNGIiIHRleHQtYW5jaG9yPSJtaWRkbGUiPjM8L3RleHQ+PHBhdGggZD0iTTM0MCAyMzBhMzAgzMCAwIDEgMCAzMCAzMCAzMCAzMCAwIDAgMS0zMC0zMHoiIGZpbGw9InVybCgjbSkiLz48L3N2Zz4=">
 
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
+    <!-- -->
     <script>
-        // 테마 설정을 조기에 반영하기 위한 가드
-        if (localStorage.getItem('theme') === 'dark') {
+        // Tailwind CDN 전용 클래스 기반 다크모드 활성화
+        tailwind.config = {
+            darkMode: 'class'
+        }
+
+        // 테마 설정을 조기에 반영하여 깜빡임 방지 (시스템 다크모드 preference 지원)
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
             document.documentElement.classList.add('dark');
         } else {
             document.documentElement.classList.remove('dark');
         }
     </script>
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
         /* 터치 시 파란 하이라이트 제거 */
         * {
@@ -57,7 +68,7 @@
                 background: white !important;
                 color: black !important;
             }
-            header, footer, #btnOpenBackup, #sidebarPanel, .no-print {
+            header, footer, #btnOpenBackup, #sidebarPanel, .no-print, #sidebarBackdrop {
                 display: none !important;
             }
             main {
@@ -113,6 +124,12 @@
 
             <!-- 실무 및 라이프 도구 모음 -->
             <div class="flex items-center space-x-2">
+                <!-- 좌측 메뉴 도구 서랍식 노출 버튼 -->
+                <button id="btnToggleSidebar" class="flex items-center gap-1.5 px-3 py-2.5 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-350 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-xl text-sm font-bold transition active:scale-95">
+                    <i class="fa-solid fa-list-check text-indigo-600 dark:text-indigo-400"></i>
+                    <span>도구 및 요약</span>
+                </button>
+
                 <!-- 3분할 확장/축소 토글 버튼 -->
                 <button id="btnToggleExpand" class="flex items-center gap-1.5 px-3 py-2.5 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-900 rounded-xl text-sm font-semibold hover:bg-indigo-100 dark:hover:bg-indigo-900 active:scale-95 transition-all" title="캘린더 레이아웃 확장">
                     <i id="expandIcon" class="fa-solid fa-expand"></i>
@@ -149,11 +166,25 @@
         </div>
     </header>
 
-    <!-- 실무 메인 레이아웃 (좌측 검색/요약 패널 + 캘린더 3분할 본문) -->
-    <div class="flex-1 max-w-7xl mx-auto p-4 flex flex-col lg:flex-row gap-4 overflow-hidden w-full">
+    <!-- 모달형 배경 레이어 (사이드바 뒷배경) -->
+    <div id="sidebarBackdrop" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-40 hidden opacity-0 transition-opacity duration-300"></div>
+
+    <!-- 실무 메인 레이아웃 (달력이 전면을 차지하고, 서랍이 독립적으로 노출) -->
+    <div class="flex-1 max-w-7xl mx-auto p-4 flex flex-col lg:flex-row gap-4 overflow-hidden w-full relative">
         
-        <!-- [실무 및 개인 전용 패널] 일정 검색, 디데이, 웰빙 통계 및 이달의 할일 -->
-        <aside id="sidebarPanel" class="w-full lg:w-80 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-4 shadow-sm flex flex-col gap-4 no-print shrink-0">
+        <!-- 서랍식 슬라이딩 사이드 패널 (도구 및 대시보드 서랍) -->
+        <aside id="sidebarPanel" class="fixed top-0 left-0 h-full w-80 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 z-50 transform -translate-x-full transition-transform duration-300 shadow-2xl flex flex-col gap-4 p-5 overflow-y-auto no-print shrink-0">
+            <!-- 서랍 헤더 -->
+            <div class="flex justify-between items-center pb-2 border-b border-slate-100 dark:border-slate-800">
+                <h2 class="font-extrabold text-slate-800 dark:text-white flex items-center gap-1.5 text-sm">
+                    <i class="fa-solid fa-circle-info text-indigo-600 dark:text-indigo-400 animate-pulse"></i>
+                    라이프스케줄 대시보드
+                </h2>
+                <button id="btnCloseSidebar" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-1 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
             <!-- 1. 일정 실시간 검색창 -->
             <div>
                 <h3 class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-2 flex items-center gap-1.5">
@@ -175,10 +206,10 @@
                 </div>
             </div>
 
-            <!-- 3. [개인 특화] 이달의 라이프 리포트 (기분 분석 & 습관 이행지표) -->
+            <!-- 3. 이달의 마음케어 리포트 (기분 분석) -->
             <div class="p-3 bg-indigo-50/50 dark:bg-indigo-950/20 border border-indigo-100 dark:border-indigo-900/50 rounded-xl space-y-2">
                 <h3 class="text-xs font-bold text-indigo-700 dark:text-indigo-400 uppercase tracking-wider flex items-center gap-1.5">
-                    <i class="fa-solid fa-chart-line"></i> 이달의 웰빙 리포트
+                    <i class="fa-solid fa-chart-line"></i> 이달의 마음케어 리포트
                 </h3>
                 <!-- 이달의 평균 행복 지표 -->
                 <div class="flex justify-between items-center text-xs">
@@ -187,14 +218,6 @@
                 </div>
                 <div class="w-full bg-slate-200 dark:bg-slate-800 h-1.5 rounded-full overflow-hidden">
                     <div id="happyProgressBar" class="bg-indigo-500 h-full transition-all duration-500" style="width: 0%"></div>
-                </div>
-                <!-- 이달의 루틴 달성 지표 -->
-                <div class="flex justify-between items-center text-xs pt-1">
-                    <span class="text-slate-500 dark:text-slate-400">일일 습관 달성도:</span>
-                    <span id="habitSuccessVal" class="font-bold text-emerald-600 dark:text-emerald-450">0%</span>
-                </div>
-                <div class="w-full bg-slate-200 dark:bg-slate-800 h-1.5 rounded-full overflow-hidden">
-                    <div id="habitProgressBar" class="bg-emerald-500 h-full transition-all duration-500" style="width: 0%"></div>
                 </div>
             </div>
 
@@ -291,18 +314,18 @@
     <!-- 하단 상태 바 / 범례 안내 -->
     <footer class="bg-slate-100 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-2.5 px-4 text-xs text-slate-500 dark:text-slate-400 text-center no-print transition-colors">
         <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
-            <div>© 2026 비즈니스 & 라이프 스마트 캘린더 | 마음케어 & 루틴 형성 엔진 탑재</div>
+            <div>© 2026 비즈니스 & 라이프 스마트 캘린더 | 마음케어 엔진 탑재</div>
             <div class="flex items-center gap-3 flex-wrap justify-center">
                 <div class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-blue-500 inline-block"></span> 업무</div>
                 <div class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-rose-500 inline-block"></span> 중요</div>
                 <div class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block"></span> 개인</div>
                 <div class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-amber-500 inline-block"></span> 일반/기타</div>
-                <div class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-red-650 bg-red-600 inline-block"></span> 법정공휴일</div>
+                <div class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-red-600 inline-block"></span> 법정공휴일</div>
             </div>
         </div>
     </footer>
 
-    <!-- [모달 1] 일정, 카테고리, 감정, 루틴, D-Day 및 도구 제어 팝업 -->
+    <!-- [모달 1] 일정, 카테고리, 감정, D-Day 및 도구 제어 팝업 -->
     <div id="memoModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 z-50 hidden opacity-0 transition-opacity duration-200">
         <div class="bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 rounded-2xl shadow-2xl max-w-md w-full overflow-hidden transform scale-95 transition-transform duration-200 border dark:border-slate-800">
             <!-- 모달 헤더 -->
@@ -328,7 +351,7 @@
                     </div>
                 </div>
 
-                <!-- [개인 특화] 오늘의 기분 선택 (Mood Tracker) -->
+                <!-- 오늘의 기분 선택 (Mood Tracker) -->
                 <div>
                     <label class="block text-xs font-bold text-slate-700 dark:text-slate-400 uppercase tracking-wide mb-1.5">오늘의 마음 날씨 (기분 스티커)</label>
                     <div class="flex justify-between items-center gap-1.5 bg-slate-50 dark:bg-slate-800/50 p-2 rounded-xl border border-slate-200/50 dark:border-slate-800" id="moodSelector">
@@ -338,27 +361,6 @@
                         <button type="button" data-mood="sad" class="flex-1 py-1 rounded-lg text-lg select-btn-mood hover:bg-white dark:hover:bg-slate-700 active:scale-95 transition" title="슬픔">😢</button>
                         <button type="button" data-mood="tired" class="flex-1 py-1 rounded-lg text-lg select-btn-mood hover:bg-white dark:hover:bg-slate-700 active:scale-95 transition" title="피곤">😴</button>
                         <button type="button" data-mood="angry" class="flex-1 py-1 rounded-lg text-lg select-btn-mood hover:bg-white dark:hover:bg-slate-700 active:scale-95 transition" title="화남">😡</button>
-                    </div>
-                </div>
-
-                <!-- [개인 특화] 습관 및 루틴 형성 (Habit Tracker) -->
-                <div class="bg-emerald-50/40 dark:bg-emerald-950/10 border border-emerald-100 dark:border-emerald-950/30 p-3 rounded-xl space-y-2">
-                    <label class="block text-xs font-bold text-emerald-800 dark:text-emerald-450 uppercase tracking-wide flex items-center gap-1">
-                        <i class="fa-solid fa-square-check"></i> 오늘 실천한 건강 루틴
-                    </label>
-                    <div class="grid grid-cols-3 gap-2">
-                        <label class="flex items-center gap-1.5 cursor-pointer bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-1.5 rounded-lg text-[10px] md:text-xs">
-                            <input type="checkbox" id="habitDiet" class="accent-emerald-500">
-                            <span class="dark:text-slate-350 truncate">🥑 건강식단/물</span>
-                        </label>
-                        <label class="flex items-center gap-1.5 cursor-pointer bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-1.5 rounded-lg text-[10px] md:text-xs">
-                            <input type="checkbox" id="habitWorkout" class="accent-emerald-500">
-                            <span class="dark:text-slate-350 truncate">🏃‍♂️ 일일운동</span>
-                        </label>
-                        <label class="flex items-center gap-1.5 cursor-pointer bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-1.5 rounded-lg text-[10px] md:text-xs">
-                            <input type="checkbox" id="habitStudy" class="accent-emerald-500">
-                            <span class="dark:text-slate-350 truncate">📚 독서/공부</span>
-                        </label>
                     </div>
                 </div>
 
@@ -527,9 +529,9 @@
             currentDate: new Date(), 
             selectedDate: null,     
             selectedColor: 'blue',  
-            selectedMood: '',        // 현재 일자용 기분 스티커
+            selectedMood: '',        
             isExpanded: false,       
-            memos: {},               // 구조: { 'YYYY-MM-DD': { text: '', color: '', isDDay: false, repeat: null, mood: '', habits: {diet: false, workout: false, study: false} } }
+            memos: {},               // 구조: { 'YYYY-MM-DD': { text: '', color: '', isDDay: false, repeat: null, mood: '' } }
             gitConfig: {
                 token: '',
                 owner: '',
@@ -544,7 +546,7 @@
         const COLOR_MAP = {
             blue: { bg: 'bg-blue-100 dark:bg-blue-950/40', text: 'text-blue-800 dark:text-blue-300', border: 'border-blue-200 dark:border-blue-900', textLight: 'text-blue-600 dark:text-blue-400', hover: 'hover:bg-blue-50 dark:hover:bg-blue-900/30', badge: 'bg-blue-500' },
             rose: { bg: 'bg-rose-100 dark:bg-rose-950/40', text: 'text-rose-800 dark:text-rose-300', border: 'border-rose-200 dark:border-rose-900', textLight: 'text-rose-600 dark:text-rose-400', hover: 'hover:bg-rose-50 dark:hover:bg-rose-900/30', badge: 'bg-rose-500' },
-            emerald: { bg: 'bg-emerald-100 dark:bg-emerald-950/40', text: 'text-emerald-800 dark:text-emerald-300', border: 'border-emerald-200 dark:border-emerald-900', textLight: 'text-emerald-600 dark:text-emerald-450', hover: 'hover:bg-emerald-50 dark:hover:bg-emerald-900/30', badge: 'bg-emerald-500' },
+            emerald: { bg: 'bg-emerald-100 dark:bg-emerald-950/40', text: 'text-emerald-800 dark:text-emerald-300', border: 'border-emerald-200 dark:border-emerald-900', textLight: 'text-emerald-600 dark:text-emerald-455', hover: 'hover:bg-emerald-50 dark:hover:bg-emerald-900/30', badge: 'bg-emerald-500' },
             amber: { bg: 'bg-amber-100 dark:bg-amber-950/40', text: 'text-amber-800 dark:text-amber-300', border: 'border-amber-200 dark:border-amber-900', textLight: 'text-amber-600 dark:text-amber-400', hover: 'hover:bg-amber-50 dark:hover:bg-amber-900/30', badge: 'bg-amber-400' }
         };
 
@@ -811,7 +813,7 @@
 
             updateMonthlyScheduleBoard();
             updateDDayBoard();
-            calculateWellnessStatistics(); // 개인화 통계 업데이트
+            calculateWellnessStatistics(); 
         }
 
         function renderSingleGrid(gridId, dateObj, isMain = false) {
@@ -830,7 +832,7 @@
 
             for (let i = 0; i < totalCells; i++) {
                 const cell = document.createElement('button');
-                cell.className = "flex flex-col justify-between p-1.5 md:p-2 border rounded-xl transition duration-150 relative text-left outline-none min-h-[55px] md:min-h-[75px]";
+                cell.className = "flex flex-col justify-between p-1.5 md:p-2 border rounded-xl transition duration-155 relative text-left outline-none min-h-[55px] md:min-h-[75px]";
                 
                 let targetYear, targetMonth, targetDay;
                 let isCurrentMonthDate = true;
@@ -862,7 +864,7 @@
                 if (holidayName) textColorClass = "text-rose-500 font-extrabold"; 
 
                 if (!isCurrentMonthDate) {
-                    textColorClass = "text-slate-300 dark:text-slate-600"; 
+                    textColorClass = "text-slate-300 dark:text-slate-650 dark:text-slate-600"; 
                 }
 
                 if (isMain && isCurrentMonthDate) {
@@ -876,10 +878,8 @@
                     cell.className += " ring-2 ring-indigo-500 ring-offset-1 dark:ring-offset-slate-950 bg-indigo-50/40 dark:bg-indigo-950/20";
                 }
 
-                // 1) 고정된 기본 메모 검사
                 let memoObj = state.memos[dateStr];
 
-                // 2) 고정 메모가 없으면 양력/음력 반복 연도 주기 기념일 검사 진행
                 if (!memoObj) {
                     const repeatedMatch = getMatchingRepeatedMemo(dateStr);
                     if (repeatedMatch) {
@@ -889,7 +889,6 @@
 
                 let memoIndicatorHTML = '';
                 let cellMemoPreviewHTML = '';
-                let habitDotsHTML = '';
                 let moodEmojiHTML = '';
 
                 if (memoObj) {
@@ -907,21 +906,8 @@
                         </span>`;
                     }
 
-                    // [개인 특화] 감정 이모티콘 렌더링
                     if (memoObj.mood && MOOD_EMOJI_MAP[memoObj.mood]) {
                         moodEmojiHTML = `<span class="text-xs md:text-sm mr-1" title="${memoObj.mood}">${MOOD_EMOJI_MAP[memoObj.mood]}</span>`;
-                    }
-
-                    // [개인 특화] 루틴 형성 미니 신호등 점 표시
-                    if (memoObj.habits) {
-                        const habits = memoObj.habits;
-                        habitDotsHTML = `
-                            <div class="flex gap-0.5 mt-1 justify-center sm:justify-start">
-                                ${habits.diet ? '<span class="w-1 h-1 rounded-full bg-orange-400" title="식단 달성"></span>' : ''}
-                                ${habits.workout ? '<span class="w-1 h-1 rounded-full bg-emerald-500" title="운동 달성"></span>' : ''}
-                                ${habits.study ? '<span class="w-1 h-1 rounded-full bg-blue-500" title="독서/공부 달성"></span>' : ''}
-                            </div>
-                        `;
                     }
                 }
 
@@ -937,9 +923,8 @@
                         ${memoIndicatorHTML}
                     </div>
                     <div class="flex flex-col w-full mt-0.5">
-                        <span class="text-[9px] md:text-[10px] text-slate-400 dark:text-slate-500 font-medium block leading-none">음 ${lunar.formatted}</span>
+                        <span class="text-[9px] md:text-[10px] text-slate-400 dark:text-slate-550 font-medium block leading-none">음 ${lunar.formatted}</span>
                         ${cellMemoPreviewHTML}
-                        ${habitDotsHTML}
                     </div>
                 `;
 
@@ -990,7 +975,7 @@
 
         /**
          * -------------------------------------------------------------
-         * 3-2. [개인 특화] 이달의 웰빙 라이프 리포트 통계 연산기
+         * 3-2. 이달의 마음케어 리포트 통계 연산기
          * -------------------------------------------------------------
          */
         function calculateWellnessStatistics() {
@@ -1000,10 +985,7 @@
             const currentYearMonth = `${currentYear}-${String(currentMonth).padStart(2, '0')}`;
 
             let totalDaysLogged = 0;
-            let happyMoodCount = 0; // 'happy' 또는 'excited' 상태일 때 맑은날 카운트
-            
-            let totalPossibleHabits = 0;
-            let accomplishedHabits = 0;
+            let happyMoodCount = 0; 
 
             Object.keys(state.memos).forEach(dateStr => {
                 if (dateStr.startsWith(currentYearMonth)) {
@@ -1012,34 +994,17 @@
 
                     totalDaysLogged++;
 
-                    // 1. 기분 상태 집계
                     if (memoObj.mood) {
                         if (memoObj.mood === 'happy' || memoObj.mood === 'excited') {
                             happyMoodCount++;
                         }
                     }
-
-                    // 2. 루틴 이행지표 집계
-                    if (memoObj.habits) {
-                        const habits = memoObj.habits;
-                        // 매일 수행해야 할 3가지 습관의 가능성
-                        totalPossibleHabits += 3;
-                        if (habits.diet) accomplishedHabits++;
-                        if (habits.workout) accomplishedHabits++;
-                        if (habits.study) accomplishedHabits++;
-                    }
                 }
             });
 
-            // 마음 날씨(맑음) 비율 계산
             const happyRatio = totalDaysLogged > 0 ? Math.round((happyMoodCount / totalDaysLogged) * 100) : 0;
             document.getElementById('happyRatioVal').innerText = `${happyRatio}%`;
             document.getElementById('happyProgressBar').style.width = `${happyRatio}%`;
-
-            // 루틴 성공 지표 계산
-            const habitSuccessRatio = totalPossibleHabits > 0 ? Math.round((accomplishedHabits / totalPossibleHabits) * 100) : 0;
-            document.getElementById('habitSuccessVal').innerText = `${habitSuccessRatio}%`;
-            document.getElementById('habitProgressBar').style.width = `${habitSuccessRatio}%`;
         }
 
         /**
@@ -1064,7 +1029,6 @@
                 const mText = memoObj.text || '';
                 const mColor = memoObj.color || 'amber';
 
-                // 기분 설명 글 합치기용 매핑
                 const moodText = memoObj.mood ? ` [기분: ${MOOD_EMOJI_MAP[memoObj.mood]}]` : '';
 
                 if (searchKeyword && !mText.toLowerCase().includes(searchKeyword.toLowerCase()) && !dateStr.includes(searchKeyword)) {
@@ -1077,16 +1041,6 @@
 
                 count++;
                 const colorScheme = COLOR_MAP[mColor] || COLOR_MAP.amber;
-
-                // 습관 요약 문자열 구축
-                let habitsText = '';
-                if (memoObj.habits && (memoObj.habits.diet || memoObj.habits.workout || memoObj.habits.study)) {
-                    const hList = [];
-                    if (memoObj.habits.diet) hList.push('🥑식단');
-                    if (memoObj.habits.workout) hList.push('🏃‍♂️운동');
-                    if (memoObj.habits.study) hList.push('📚독서');
-                    habitsText = `<div class="text-[10px] text-emerald-600 dark:text-emerald-450 mt-1 font-semibold flex gap-1">실천 습관: ${hList.join(', ')}</div>`;
-                }
 
                 const card = document.createElement('div');
                 card.className = `p-2.5 border ${colorScheme.border} ${colorScheme.bg} rounded-xl text-left cursor-pointer transition transform hover:scale-[1.01] hover:shadow-sm ${colorScheme.hover} flex flex-col gap-1`;
@@ -1103,8 +1057,7 @@
                             </span>
                         </div>
                     </div>
-                    <p class="text-xs text-slate-800 dark:text-slate-100 font-medium whitespace-pre-wrap truncate max-w-full">${mText ? mText : '감정 및 습관 기록됨'}</p>
-                    ${habitsText}
+                    <p class="text-xs text-slate-800 dark:text-slate-100 font-medium whitespace-pre-wrap truncate max-w-full">${mText ? mText : '감정 기록됨'}</p>
                 `;
 
                 card.addEventListener('click', () => {
@@ -1113,6 +1066,7 @@
                     renderThreeMonths();
                     const lunar = getLunarDate(y, m, d);
                     openMemoModal(y, m - 1, d, lunar);
+                    closeSidebar(); // 요약 클릭 시 쾌적한 화면 전환을 위해 서랍을 닫아줍니다.
                 });
 
                 listContainer.appendChild(card);
@@ -1122,7 +1076,7 @@
 
             if (count === 0) {
                 listContainer.innerHTML = `
-                    <div class="text-center text-xs text-slate-400 dark:text-slate-500 py-10">
+                    <div class="text-center text-xs text-slate-400 dark:text-slate-550 py-10">
                         <i class="fa-regular fa-folder-open text-lg block mb-1"></i>
                         ${searchKeyword ? '검색어와 일치하는 일정이 없습니다.' : '이달 예정된 일정이 없습니다.'}
                     </div>`;
@@ -1143,7 +1097,6 @@
 
             const ddaySchedules = [];
 
-            // 1) 고정일 중 D-Day 지정 수집
             Object.keys(state.memos).forEach(dateStr => {
                 const memoObj = state.memos[dateStr];
                 if (memoObj && memoObj.isDDay) {
@@ -1151,7 +1104,6 @@
                 }
             });
 
-            // 2) 매년 양/음력 반복 지정된 일정 중, 현재 연도의 양력 환산 기점이 오늘 이후에 있는 D-Day 카드 임베디드 수집
             const currentYear = today.getFullYear();
             Object.keys(state.memos).forEach(originDateStr => {
                 const memoObj = state.memos[originDateStr];
@@ -1221,6 +1173,7 @@
                     renderThreeMonths();
                     const lunar = getLunarDate(y, m, d);
                     openMemoModal(y, m - 1, d, lunar);
+                    closeSidebar(); // 쾌적한 전면 캘린더 집중을 위해 도구 서랍을 닫아줍니다.
                 });
 
                 ddayContainer.appendChild(card);
@@ -1237,6 +1190,34 @@
 
         /**
          * -------------------------------------------------------------
+         * 5-1. 도구 서랍(사이드 바) 제어 엔진
+         * -------------------------------------------------------------
+         */
+        const sidebarPanel = document.getElementById('sidebarPanel');
+        const sidebarBackdrop = document.getElementById('sidebarBackdrop');
+
+        function openSidebar() {
+            sidebarBackdrop.classList.remove('hidden');
+            sidebarPanel.classList.remove('-translate-x-full');
+            setTimeout(() => {
+                sidebarBackdrop.classList.remove('opacity-0');
+            }, 50);
+        }
+
+        function closeSidebar() {
+            sidebarBackdrop.classList.add('opacity-0');
+            sidebarPanel.classList.add('-translate-x-full');
+            setTimeout(() => {
+                sidebarBackdrop.classList.add('hidden');
+            }, 300);
+        }
+
+        document.getElementById('btnToggleSidebar').addEventListener('click', openSidebar);
+        document.getElementById('btnCloseSidebar').addEventListener('click', closeSidebar);
+        sidebarBackdrop.addEventListener('click', closeSidebar);
+
+        /**
+         * -------------------------------------------------------------
          * 6. 인터랙티브 메모 모달 제어 및 도구 로직
          * -------------------------------------------------------------
          */
@@ -1247,13 +1228,7 @@
         const repeatOptionsContainer = document.getElementById('repeatOptionsContainer');
         const toolsTargetDate = document.getElementById('toolsTargetDate');
         const btnAddToGoogleCalendar = document.getElementById('btnAddToGoogleCalendar');
-        
-        // 습관 체크박스 요소군
-        const habitDiet = document.getElementById('habitDiet');
-        const habitWorkout = document.getElementById('habitWorkout');
-        const habitStudy = document.getElementById('habitStudy');
 
-        // 감정 선택 리스너 위임
         const moodButtons = document.querySelectorAll('.select-btn-mood');
         moodButtons.forEach(btn => {
             btn.addEventListener('click', (e) => {
@@ -1313,7 +1288,6 @@
             
             toolsTargetDate.value = dateStr;
 
-            // 기존 메모 복원 로직
             let existingMemo = state.memos[dateStr];
             let isItemFromRepeatedMatch = false;
 
@@ -1334,9 +1308,6 @@
                     ddayCheckbox.checked = false;
                     repeatCheckbox.checked = false;
                     repeatOptionsContainer.classList.add('hidden');
-                    habitDiet.checked = false;
-                    habitWorkout.checked = false;
-                    habitStudy.checked = false;
                 } else {
                     memoInput.value = existingMemo.text || '';
                     setCategoryColorSelection(existingMemo.color || 'blue');
@@ -1351,17 +1322,6 @@
                         repeatCheckbox.checked = false;
                         repeatOptionsContainer.classList.add('hidden');
                     }
-
-                    // 습관 세팅 복원
-                    if (existingMemo.habits) {
-                        habitDiet.checked = !!existingMemo.habits.diet;
-                        habitWorkout.checked = !!existingMemo.habits.workout;
-                        habitStudy.checked = !!existingMemo.habits.study;
-                    } else {
-                        habitDiet.checked = false;
-                        habitWorkout.checked = false;
-                        habitStudy.checked = false;
-                    }
                 }
             } else {
                 memoInput.value = '';
@@ -1370,9 +1330,6 @@
                 ddayCheckbox.checked = false;
                 repeatCheckbox.checked = false;
                 repeatOptionsContainer.classList.add('hidden');
-                habitDiet.checked = false;
-                habitWorkout.checked = false;
-                habitStudy.checked = false;
             }
 
             memoModal.classList.remove('hidden');
@@ -1394,10 +1351,7 @@
             if (!state.selectedDate) return;
             const content = memoInput.value.trim();
 
-            const hasHabitsChecked = habitDiet.checked || habitWorkout.checked || habitStudy.checked;
-
-            // 내용 기입이 있거나, 감정을 지정했거나, 습관을 하나라도 마크한 경우 객체 생성 및 유지
-            if (content || state.selectedMood || hasHabitsChecked) {
+            if (content || state.selectedMood) {
                 const [y, m, d] = state.selectedDate.split('-').map(Number);
                 
                 let repeatConfig = null;
@@ -1424,12 +1378,7 @@
                     color: state.selectedColor,
                     isDDay: ddayCheckbox.checked,
                     repeat: repeatConfig,
-                    mood: state.selectedMood,
-                    habits: {
-                        diet: habitDiet.checked,
-                        workout: habitWorkout.checked,
-                        study: habitStudy.checked
-                    }
+                    mood: state.selectedMood
                 };
             } else {
                 delete state.memos[state.selectedDate];
@@ -1463,7 +1412,7 @@
             if (!state.selectedDate) return;
 
             const plainDate = state.selectedDate.replace(/-/g, '');
-            const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(content)}&dates=${plainDate}/${plainDate}&details=${encodeURIComponent('스마트 3분할 캘린더에서 연동된 일정입니다.')}`;
+            const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(content)}&dates=${plainDate}/${plainDate}&details=${encodeURIComponent('스마트 캘린더에서 연동된 일정입니다.')}`;
             
             window.open(googleCalendarUrl, '_blank');
         });
@@ -1480,12 +1429,7 @@
                 color: state.selectedColor,
                 isDDay: ddayCheckbox.checked,
                 repeat: repeatCheckbox.checked ? originalObj.repeat : null,
-                mood: state.selectedMood,
-                habits: {
-                    diet: habitDiet.checked,
-                    workout: habitWorkout.checked,
-                    study: habitStudy.checked
-                }
+                mood: state.selectedMood
             };
 
             localStorage.setItem(MEMO_STORAGE_KEY, JSON.stringify(state.memos));
@@ -1507,12 +1451,7 @@
                 color: state.selectedColor,
                 isDDay: ddayCheckbox.checked,
                 repeat: repeatCheckbox.checked ? originalObj.repeat : null,
-                mood: state.selectedMood,
-                habits: {
-                    diet: habitDiet.checked,
-                    workout: habitWorkout.checked,
-                    study: habitStudy.checked
-                }
+                mood: state.selectedMood
             };
             delete state.memos[state.selectedDate];
 
@@ -1852,7 +1791,7 @@
                 localStorage.setItem('theme', 'dark');
                 showToast('다크 모드로 전환되었습니다.');
             }
-            renderThreeMonths(); // 통계 차트 색상 반전 갱신
+            renderThreeMonths(); 
         });
 
 
@@ -1957,8 +1896,7 @@
                             color: 'amber',
                             isDDay: false,
                             repeat: null,
-                            mood: '',
-                            habits: { diet: false, workout: false, study: false }
+                            mood: ''
                         };
                     });
                     localStorage.setItem(MEMO_STORAGE_KEY, JSON.stringify(state.memos));
