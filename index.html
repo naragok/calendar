@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>3분할 스마트 라이프스타일 음력 캘린더</title>
+    <title>3분할 스마트 라이프스타일 음력 & 주간 다이어리 캘린더</title>
     
     <!-- iOS / iPadOS Safari 홈 화면 바로가기 전용 메타 & 아이콘 -->
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -17,14 +17,11 @@
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- -->
     <script>
-        // Tailwind CDN 전용 클래스 기반 다크모드 활성화
         tailwind.config = {
             darkMode: 'class'
         }
 
-        // 테마 설정을 조기에 반영하여 깜빡임 방지 (시스템 다크모드 preference 지원)
         const savedTheme = localStorage.getItem('theme');
         const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
         
@@ -39,11 +36,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* 터치 시 파란 하이라이트 제거 */
         * {
             -webkit-tap-highlight-color: transparent;
         }
-        /* 스크롤바 커스텀 */
         ::-webkit-scrollbar {
             width: 6px;
             height: 6px;
@@ -62,7 +57,6 @@
             background: #94a3b8;
         }
 
-        /* 인쇄 최적화 스타일 */
         @media print {
             body {
                 background: white !important;
@@ -109,12 +103,18 @@
                 </h1>
             </div>
 
+            <!-- 월간 / 주간 다이어리 전환 탭 -->
+            <div class="flex items-center bg-slate-100 dark:bg-slate-800 rounded-xl p-1 shadow-inner no-print">
+                <button id="btnViewMonthly" class="px-4 py-1.5 text-xs md:text-sm font-bold rounded-lg transition-all bg-white dark:bg-slate-700 text-indigo-600 dark:text-white shadow-sm" title="월간 및 3분할 캘린더">월간</button>
+                <button id="btnViewWeekly" class="px-4 py-1.5 text-xs md:text-sm font-bold rounded-lg transition-all text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-250" title="요일별 할 일 및 다이어리 타임라인">주간 다이어리</button>
+            </div>
+
             <!-- 현재 표시 월 네비게이션 -->
             <div class="flex items-center bg-slate-100 dark:bg-slate-800 rounded-xl p-1 shadow-inner">
                 <button id="btnPrevMonth" class="px-3 py-1.5 text-slate-600 dark:text-slate-400 hover:bg-white dark:hover:bg-slate-700 hover:text-slate-900 dark:hover:text-white rounded-lg active:scale-95 transition-all">
                     <i class="fa-solid fa-chevron-left"></i>
                 </button>
-                <span id="currentPeriodLabel" class="px-4 font-bold text-slate-700 dark:text-slate-200 min-w-[120px] text-center text-sm md:text-base">
+                <span id="currentPeriodLabel" class="px-4 font-bold text-slate-700 dark:text-slate-200 min-w-[140px] text-center text-sm md:text-base cursor-pointer hover:bg-white/50 dark:hover:bg-slate-700/50 rounded-lg py-1 transition-all" title="더블 클릭 시 오늘 날짜로 이동">
                     2026년 07월
                 </span>
                 <button id="btnNextMonth" class="px-3 py-1.5 text-slate-600 dark:text-slate-400 hover:bg-white dark:hover:bg-slate-700 hover:text-slate-900 dark:hover:text-white rounded-lg active:scale-95 transition-all">
@@ -124,13 +124,11 @@
 
             <!-- 실무 및 라이프 도구 모음 -->
             <div class="flex items-center space-x-2">
-                <!-- 좌측 메뉴 도구 서랍식 노출 버튼 -->
                 <button id="btnToggleSidebar" class="flex items-center gap-1.5 px-3 py-2.5 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-350 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-xl text-sm font-bold transition active:scale-95">
                     <i class="fa-solid fa-list-check text-indigo-600 dark:text-indigo-400"></i>
                     <span>도구 및 요약</span>
                 </button>
 
-                <!-- 3분할 확장/축소 토글 버튼 -->
                 <button id="btnToggleExpand" class="flex items-center gap-1.5 px-3 py-2.5 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-900 rounded-xl text-sm font-semibold hover:bg-indigo-100 dark:hover:bg-indigo-900 active:scale-95 transition-all" title="캘린더 레이아웃 확장">
                     <i id="expandIcon" class="fa-solid fa-expand"></i>
                     <span id="expandText" class="hidden md:inline">3분할 확장</span>
@@ -140,7 +138,6 @@
                     <i class="fa-solid fa-print"></i>
                 </button>
                 
-                <!-- JSON 파일 백업/복원 -->
                 <input type="file" id="localFileImport" class="hidden" accept=".json">
                 <button id="btnLocalExport" class="p-2.5 bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-700 transition active:scale-95" title="로컬 백업 파일로 내보내기 (JSON)">
                     <i class="fa-solid fa-file-export"></i>
@@ -149,7 +146,6 @@
                     <i class="fa-solid fa-file-import"></i>
                 </button>
 
-                <!-- 구글/삼성 연동용 ICS 백업/복원 -->
                 <input type="file" id="icsFileImport" class="hidden" accept=".ics">
                 <button id="btnIcsExport" class="p-2.5 bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-900/50 rounded-xl hover:bg-blue-100 dark:hover:bg-blue-900/50 transition active:scale-95" title="구글/삼성 캘린더용 ICS 파일 내보내기">
                     <i class="fa-regular fa-calendar-plus"></i>
@@ -166,15 +162,13 @@
         </div>
     </header>
 
-    <!-- 모달형 배경 레이어 (사이드바 뒷배경) -->
     <div id="sidebarBackdrop" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-40 hidden opacity-0 transition-opacity duration-300"></div>
 
-    <!-- 실무 메인 레이아웃 (달력이 전면을 차지하고, 서랍이 독립적으로 노출) -->
+    <!-- 실무 메인 레이아웃 -->
     <div class="flex-1 max-w-7xl mx-auto p-4 flex flex-col lg:flex-row gap-4 overflow-hidden w-full relative">
         
-        <!-- 서랍식 슬라이딩 사이드 패널 (도구 및 대시보드 서랍) -->
+        <!-- 서랍식 슬라이딩 사이드 패널 -->
         <aside id="sidebarPanel" class="fixed top-0 left-0 h-full w-80 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 z-50 transform -translate-x-full transition-transform duration-300 shadow-2xl flex flex-col gap-4 p-5 overflow-y-auto no-print shrink-0">
-            <!-- 서랍 헤더 -->
             <div class="flex justify-between items-center pb-2 border-b border-slate-100 dark:border-slate-800">
                 <h2 class="font-extrabold text-slate-800 dark:text-white flex items-center gap-1.5 text-sm">
                     <i class="fa-solid fa-circle-info text-indigo-600 dark:text-indigo-400 animate-pulse"></i>
@@ -185,9 +179,8 @@
                 </button>
             </div>
 
-            <!-- 1. 일정 실시간 검색창 -->
             <div>
-                <h3 class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                <h3 class="text-xs font-bold text-slate-400 dark:text-slate-550 uppercase tracking-wider mb-2 flex items-center gap-1.5">
                     <i class="fa-solid fa-magnifying-glass"></i> 실무 및 라이프 검색
                 </h3>
                 <div class="relative">
@@ -196,9 +189,8 @@
                 </div>
             </div>
 
-            <!-- 2. 실무 특화: D-Day 우선 대시보드 -->
             <div>
-                <h3 class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                <h3 class="text-xs font-bold text-slate-400 dark:text-slate-555 uppercase tracking-wider mb-2 flex items-center gap-1.5">
                     <i class="fa-solid fa-clock"></i> 중요 D-Day 리스트
                 </h3>
                 <div id="ddayList" class="space-y-1.5 max-h-[110px] overflow-y-auto pr-1">
@@ -206,12 +198,10 @@
                 </div>
             </div>
 
-            <!-- 3. 이달의 마음케어 리포트 (기분 분석) -->
             <div class="p-3 bg-indigo-50/50 dark:bg-indigo-950/20 border border-indigo-100 dark:border-indigo-900/50 rounded-xl space-y-2">
                 <h3 class="text-xs font-bold text-indigo-700 dark:text-indigo-400 uppercase tracking-wider flex items-center gap-1.5">
                     <i class="fa-solid fa-chart-line"></i> 이달의 마음케어 리포트
                 </h3>
-                <!-- 이달의 평균 행복 지표 -->
                 <div class="flex justify-between items-center text-xs">
                     <span class="text-slate-500 dark:text-slate-400">마음 날씨 (맑음 비율):</span>
                     <span id="happyRatioVal" class="font-bold text-indigo-600 dark:text-indigo-400">0%</span>
@@ -221,15 +211,13 @@
                 </div>
             </div>
 
-            <!-- 4. 이달의 일정 브리핑 보드 -->
             <div class="flex-1 flex flex-col min-h-[160px]">
                 <div class="flex justify-between items-center mb-2">
-                    <h3 class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
+                    <h3 class="text-xs font-bold text-slate-400 dark:text-slate-550 uppercase tracking-wider flex items-center gap-1.5">
                         <i class="fa-solid fa-clipboard-list"></i> 이달의 일정 모아보기
                     </h3>
                     <span id="monthlyCount" class="text-xs font-bold bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 px-2 py-0.5 rounded-full">0건</span>
                 </div>
-                <!-- 스케줄 스크롤 리스트 -->
                 <div id="monthlyScheduleList" class="flex-1 overflow-y-auto space-y-2 max-h-[180px] lg:max-h-none pr-1">
                     <div class="text-center text-xs text-slate-400 dark:text-slate-550 py-8">등록된 일정이 없습니다.</div>
                 </div>
@@ -246,7 +234,7 @@
                         <i class="fa-regular fa-calendar text-slate-400 dark:text-slate-500"></i>
                         이전 달
                     </h2>
-                    <span id="prevMonthTitle" class="text-sm font-semibold text-slate-600 dark:text-slate-400">2026.06</span>
+                    <span id="prevMonthTitle" class="text-sm font-semibold text-slate-600 dark:text-slate-400 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800 px-2 py-0.5 rounded-md transition-all" title="더블 클릭 시 오늘 날짜로 이동">2026.06</span>
                 </div>
                 <div class="grid grid-cols-7 gap-1 text-center font-semibold text-xs text-slate-400 dark:text-slate-550 mb-2">
                     <div class="text-rose-400">일</div>
@@ -269,7 +257,7 @@
                         <i class="fa-solid fa-calendar-day text-indigo-600 dark:text-indigo-400 animate-pulse"></i>
                         현재 달
                     </h2>
-                    <span id="mainMonthTitle" class="text-base font-bold text-indigo-950 dark:text-white">2026.07</span>
+                    <span id="mainMonthTitle" class="text-base font-bold text-indigo-950 dark:text-white cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800 px-2 py-0.5 rounded-md transition-all" title="더블 클릭 시 오늘 날짜로 이동">2026.07</span>
                 </div>
                 <div class="grid grid-cols-7 gap-1 text-center font-bold text-xs md:text-sm text-slate-500 dark:text-slate-400 mb-2 py-1 bg-indigo-50/50 dark:bg-indigo-950/30 rounded-lg">
                     <div class="text-rose-500">일</div>
@@ -289,10 +277,10 @@
             <section id="nextMonthSection" class="hidden flex-1 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-sm p-4 flex flex-col transition-all duration-300 opacity-85 hover:opacity-100 lg:max-w-[32%]">
                 <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-100 dark:border-slate-800">
                     <h2 class="font-bold text-slate-500 dark:text-slate-400 text-sm flex items-center gap-1">
-                        <i class="fa-regular fa-calendar text-slate-400 dark:text-slate-500"></i>
+                        <i class="fa-regular fa-calendar text-slate-400 dark:text-slate-550"></i>
                         다음 달
                     </h2>
-                    <span id="nextMonthTitle" class="text-sm font-semibold text-slate-600 dark:text-slate-400">2026.08</span>
+                    <span id="nextMonthTitle" class="text-sm font-semibold text-slate-600 dark:text-slate-400 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800 px-2 py-0.5 rounded-md transition-all" title="더블 클릭 시 오늘 날짜로 이동">2026.08</span>
                 </div>
                 <div class="grid grid-cols-7 gap-1 text-center font-semibold text-xs text-slate-400 dark:text-slate-550 mb-2">
                     <div class="text-rose-400">일</div>
@@ -303,29 +291,36 @@
                     <div>금</div>
                     <div class="text-sky-400">토</div>
                 </div>
-                <div id="nextMonthGrid" class="grid grid-cols-7 gap-1 flex-1 content-start">
-                    <!-- 동적 생성 -->
+                <div id="prevMonthGrid" class="grid grid-cols-7 gap-1 flex-1 content-start" id="nextMonthGrid">
+                    <div id="nextMonthGrid" class="grid grid-cols-7 gap-1 flex-1 content-start"></div>
                 </div>
             </section>
 
+        </main>
+
+        <!-- [신규] 주간 다이어리 컨테이너 (기본 히든) -->
+        <main id="weeklyContainer" class="hidden flex-1 flex flex-col gap-4 overflow-hidden transition-all duration-300 w-full max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-7 gap-4 w-full flex-1 min-h-[500px]">
+                <!-- 월요일 ~ 일요일까지 7개의 카드가 동적으로 주입될 예정 -->
+            </div>
         </main>
     </div>
 
     <!-- 하단 상태 바 / 범례 안내 -->
     <footer class="bg-slate-100 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-2.5 px-4 text-xs text-slate-500 dark:text-slate-400 text-center no-print transition-colors">
         <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
-            <div>© 2026 비즈니스 & 라이프 스마트 캘린더 | 마음케어 엔진 탑재</div>
+            <div>© 2026 비즈니스 & 라이프 스마트 캘린더 | 마음케어 & 실시간 자동 날씨 탑재</div>
             <div class="flex items-center gap-3 flex-wrap justify-center">
                 <div class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-blue-500 inline-block"></span> 업무</div>
                 <div class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-rose-500 inline-block"></span> 중요</div>
                 <div class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block"></span> 개인</div>
                 <div class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-amber-500 inline-block"></span> 일반/기타</div>
-                <div class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-red-600 inline-block"></span> 법정공휴일</div>
+                <div class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-red-650 bg-red-600 inline-block"></span> 법정공휴일</div>
             </div>
         </div>
     </footer>
 
-    <!-- [모달 1] 일정, 카테고리, 감정, D-Day 및 도구 제어 팝업 -->
+    <!-- [모달 1] 일정 및 도구 제어 팝업 -->
     <div id="memoModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 z-50 hidden opacity-0 transition-opacity duration-200">
         <div class="bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 rounded-2xl shadow-2xl max-w-md w-full overflow-hidden transform scale-95 transition-transform duration-200 border dark:border-slate-800">
             <!-- 모달 헤더 -->
@@ -364,6 +359,34 @@
                     </div>
                 </div>
 
+                <!-- 실시간 위치 기반 날씨 트래커 (Weather Tracker) -->
+                <div class="bg-indigo-50/40 dark:bg-indigo-950/10 border border-indigo-100 dark:border-indigo-950/30 p-3 rounded-xl space-y-2">
+                    <div class="flex items-center justify-between">
+                        <label class="block text-xs font-bold text-indigo-800 dark:text-indigo-400 uppercase tracking-wide flex items-center gap-1">
+                            <i class="fa-solid fa-cloud-sun"></i> 오늘의 날씨 기록
+                        </label>
+                        <button type="button" id="btnAutoWeather" class="px-2.5 py-1 bg-indigo-600 hover:bg-indigo-700 text-white text-[10px] font-bold rounded-lg transition active:scale-95 flex items-center gap-1 shadow-sm">
+                            <i class="fa-solid fa-location-crosshairs text-[9px]"></i> 날씨 자동 가져오기
+                        </button>
+                    </div>
+
+                    <!-- 기상 스티커 선택창 -->
+                    <div class="grid grid-cols-7 gap-1 text-center" id="weatherSelector">
+                        <button type="button" data-weather="" class="py-1 rounded-lg text-[10px] font-semibold bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-400 select-btn-weather hover:bg-slate-50 dark:hover:bg-slate-700 transition">없음</button>
+                        <button type="button" data-weather="sunny" class="py-1 rounded-lg text-sm select-btn-weather hover:bg-white dark:hover:bg-slate-700 transition" title="맑음">☀️</button>
+                        <button type="button" data-weather="cloudy" class="py-1 rounded-lg text-sm select-btn-weather hover:bg-white dark:hover:bg-slate-700 transition" title="흐림">🌤️</button>
+                        <button type="button" data-weather="overcast" class="py-1 rounded-lg text-sm select-btn-weather hover:bg-white dark:hover:bg-slate-700 transition" title="구름">☁️</button>
+                        <button type="button" data-weather="rainy" class="py-1 rounded-lg text-sm select-btn-weather hover:bg-white dark:hover:bg-slate-700 transition" title="비">🌧️</button>
+                        <button type="button" data-weather="snowy" class="py-1 rounded-lg text-sm select-btn-weather hover:bg-white dark:hover:bg-slate-700 transition" title="눈">❄️</button>
+                        <button type="button" data-weather="thunder" class="py-1 rounded-lg text-sm select-btn-weather hover:bg-white dark:hover:bg-slate-700 transition" title="뇌우">⚡</button>
+                    </div>
+
+                    <div id="weatherStatusDisplay" class="hidden text-[11px] text-slate-500 dark:text-slate-400 font-semibold flex items-center justify-between p-1.5 bg-white/70 dark:bg-slate-850/60 rounded-lg border border-slate-200/50 dark:border-slate-800">
+                        <span id="weatherText">현재 위치 기온 탐색 대기중...</span>
+                        <span id="weatherTemp" class="text-indigo-600 dark:text-indigo-400 font-bold"></span>
+                    </div>
+                </div>
+
                 <!-- 메모 입력 -->
                 <div>
                     <label class="block text-xs font-bold text-slate-700 dark:text-slate-400 uppercase tracking-wide mb-1.5">상세 내용 및 스케줄</label>
@@ -377,7 +400,7 @@
                             <i class="fa-solid fa-cake-candles text-amber-500 animate-pulse"></i>
                             <div>
                                 <p class="text-xs font-bold">매년 반복 설정 (생일/기념일)</p>
-                                <p class="text-[10px] text-slate-400 dark:text-slate-500">지정한 일의 매년 양/음력을 자동 역산</p>
+                                <p class="text-[10px] text-slate-400 dark:text-slate-550">지정한 일의 매년 양/음력을 자동 역산</p>
                             </div>
                         </div>
                         <label class="relative inline-flex items-center cursor-pointer">
@@ -386,7 +409,6 @@
                         </label>
                     </div>
                     
-                    <!-- 반복 옵션 (체크 시 활성화) -->
                     <div id="repeatOptionsContainer" class="hidden flex items-center justify-end gap-4 text-xs font-medium pt-1.5 border-t border-amber-100/50 dark:border-amber-900/30">
                         <label class="flex items-center gap-1.5 cursor-pointer dark:text-slate-300">
                             <input type="radio" name="repeatType" value="solar" checked class="accent-amber-500">
@@ -401,7 +423,6 @@
 
                 <!-- 캘린더 연동 및 D-Day 설정 공간 -->
                 <div class="grid grid-cols-1 gap-2">
-                    <!-- D-Day 토글 스위치 -->
                     <div class="flex items-center justify-between bg-slate-50 dark:bg-slate-800/60 p-2.5 rounded-xl border border-slate-200/50 dark:border-slate-800">
                         <div class="flex items-center gap-2">
                             <i class="fa-solid fa-clock-rotate-left text-indigo-500"></i>
@@ -416,7 +437,6 @@
                         </label>
                     </div>
 
-                    <!-- 개별 일정 구글 캘린더 전송 기능 -->
                     <div class="flex items-center justify-between bg-blue-50/50 dark:bg-blue-950/20 p-2.5 rounded-xl border border-blue-100 dark:border-blue-900/50">
                         <div class="flex items-center gap-2">
                             <i class="fa-brands fa-google text-blue-500"></i>
@@ -473,7 +493,6 @@
                     GitHub Personal Access Token을 생성하여 저장소(Repo)에 메모 데이터를 안전하게 백업 및 복원할 수 있습니다.
                 </div>
 
-                <!-- 설정 폼 -->
                 <div class="space-y-3">
                     <div>
                         <label class="block text-xs font-bold text-slate-700 dark:text-slate-400 uppercase tracking-wide mb-1">GitHub Access Token (PAT)</label>
@@ -491,10 +510,8 @@
                     </div>
                 </div>
 
-                <!-- 알림 메시지 영역 -->
                 <div id="backupStatusMsg" class="hidden p-3 rounded-xl text-xs font-semibold"></div>
 
-                <!-- 액션 버튼들 -->
                 <div class="pt-3 border-t border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row gap-2">
                     <button id="btnLoadFromGit" class="flex-1 py-2.5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold rounded-xl text-xs sm:text-sm transition flex items-center justify-center gap-1.5">
                         <i class="fa-solid fa-cloud-arrow-down"></i> 동기화 가져오기
@@ -520,18 +537,15 @@
     </div>
 
     <script>
-        /**
-         * -------------------------------------------------------------
-         * 1. 전역 상태 및 모듈 관리
-         * -------------------------------------------------------------
-         */
         const state = {
             currentDate: new Date(), 
             selectedDate: null,     
             selectedColor: 'blue',  
             selectedMood: '',        
+            selectedWeather: null,   
             isExpanded: false,       
-            memos: {},               // 구조: { 'YYYY-MM-DD': { text: '', color: '', isDDay: false, repeat: null, mood: '' } }
+            viewMode: 'monthly',     // 'monthly' 또는 'weekly'
+            memos: {},               
             gitConfig: {
                 token: '',
                 owner: '',
@@ -558,11 +572,22 @@
             angry: '😡'
         };
 
-        /**
-         * -------------------------------------------------------------
-         * 2. 고정밀 음력 간이 계산 엔진 및 공휴일 분석기
-         * -------------------------------------------------------------
-         */
+        const WEATHER_EMOJI_MAP = {
+            solar: '☀',
+            lunar: '🌙',
+            cloudy: '☁',
+            rain: '🌧',
+            snow: '❄'
+        };
+
+        const MOOD_TEXT_MAP = {
+            happy: '행복',
+            excited: '신남',
+            sad: '슬픔',
+            tired: '피곤',
+            angry: '화남'
+        };
+
         function getLunarDate(year, month, day) {
             const baseDate = new Date(1900, 0, 31);
             const targetDate = new Date(year, month - 1, day);
@@ -791,11 +816,260 @@
         }
 
         /**
-         * -------------------------------------------------------------
-         * 3. 캘린더 드로잉 엔진 및 실무 보드 제어
-         * -------------------------------------------------------------
+         * 뷰 모드 제어 및 스위치 액션
          */
+        function switchViewMode(mode) {
+            state.viewMode = mode;
+            const btnMonthly = document.getElementById('btnViewMonthly');
+            const btnWeekly = document.getElementById('btnViewWeekly');
+            const mainContainer = document.getElementById('mainContainer');
+            const weeklyContainer = document.getElementById('weeklyContainer');
+            const expandBtn = document.getElementById('btnToggleExpand');
+
+            if (mode === 'monthly') {
+                btnMonthly.className = "px-4 py-1.5 text-xs md:text-sm font-bold rounded-lg transition-all bg-white dark:bg-slate-700 text-indigo-600 dark:text-white shadow-sm";
+                btnWeekly.className = "px-4 py-1.5 text-xs md:text-sm font-bold rounded-lg transition-all text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-250";
+                mainContainer.classList.remove('hidden');
+                weeklyContainer.classList.add('hidden');
+                expandBtn.removeAttribute('disabled');
+                expandBtn.classList.remove('opacity-40', 'cursor-not-allowed');
+            } else {
+                btnWeekly.className = "px-4 py-1.5 text-xs md:text-sm font-bold rounded-lg transition-all bg-white dark:bg-slate-700 text-indigo-600 dark:text-white shadow-sm";
+                btnMonthly.className = "px-4 py-1.5 text-xs md:text-sm font-bold rounded-lg transition-all text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-250";
+                mainContainer.classList.add('hidden');
+                weeklyContainer.classList.remove('hidden');
+                // 주간 보기에서는 3분할 확장이 무의미하므로 비활성 처리
+                expandBtn.setAttribute('disabled', 'true');
+                expandBtn.classList.add('opacity-40', 'cursor-not-allowed');
+            }
+            renderThreeMonths();
+        }
+
+        document.getElementById('btnViewMonthly').addEventListener('click', () => switchViewMode('monthly'));
+        document.getElementById('btnViewWeekly').addEventListener('click', () => switchViewMode('weekly'));
+
+        /**
+         * 주간 캘린더 생성 및 렌더링
+         */
+        function renderWeeklyView() {
+            const weeklyGrid = document.querySelector('#weeklyContainer > div');
+            weeklyGrid.innerHTML = '';
+
+            const current = new Date(state.currentDate);
+            const currentDayIndex = current.getDay(); // 0: 일, 1: 월 ...
+
+            // 이번주의 시작일(일요일) 구하기
+            const startOfWeek = new Date(current);
+            startOfWeek.setDate(current.getDate() - currentDayIndex);
+
+            // 주간 범위 헤더 갱신
+            const endOfWeek = new Date(startOfWeek);
+            endOfWeek.setDate(startOfWeek.getDate() + 6);
+
+            const formatRange = (d) => `${String(d.getMonth() + 1).padStart(2, '0')}.${String(d.getDate()).padStart(2, '0')}`;
+            document.getElementById('currentPeriodLabel').innerText = `${startOfWeek.getFullYear()}년 ${String(startOfWeek.getMonth() + 1).padStart(2, '0')}월 (${formatRange(startOfWeek)} ~ ${formatRange(endOfWeek)})`;
+
+            const dayNames = ["일", "월", "화", "수", "목", "금", "토"];
+            const today = new Date();
+
+            for (let i = 0; i < 7; i++) {
+                const targetDate = new Date(startOfWeek);
+                targetDate.setDate(startOfWeek.getDate() + i);
+
+                const year = targetDate.getFullYear();
+                const month = targetDate.getMonth() + 1;
+                const day = targetDate.getDate();
+                const dateStr = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+
+                const lunar = getLunarDate(year, month, day);
+                const holidayName = checkHoliday(year, month, day, lunar);
+
+                let isToday = today.getFullYear() === year && today.getMonth() === (month - 1) && today.getDate() === day;
+                let dayOfWeekName = dayNames[i];
+
+                let borderTheme = isToday ? "border-indigo-500 dark:border-indigo-400 ring-2 ring-indigo-500/30" : "border-slate-200 dark:border-slate-800";
+                let headerBg = isToday ? "bg-indigo-500/10 dark:bg-indigo-500/20 text-indigo-700 dark:text-indigo-300" : "bg-slate-50 dark:bg-slate-800 text-slate-700 dark:text-slate-300";
+
+                let textDayColor = "text-slate-800 dark:text-white";
+                if (i === 0) textDayColor = "text-rose-500";
+                if (i === 6) textDayColor = "text-sky-500";
+                if (holidayName) textDayColor = "text-rose-500 font-extrabold";
+
+                // 메모 연동 분기
+                let memoObj = state.memos[dateStr];
+                if (!memoObj) {
+                    const repeatedMatch = getMatchingRepeatedMemo(dateStr);
+                    if (repeatedMatch) memoObj = repeatedMatch;
+                }
+
+                // 기분/날씨 데이터 복원
+                let moodEmoji = memoObj && memoObj.mood ? MOOD_EMOJI_MAP[memoObj.mood] : '';
+                let weatherEmoji = memoObj && memoObj.weather ? memoObj.weather.emoji : '';
+                let weatherTemp = memoObj && memoObj.weather && memoObj.weather.temp ? ` ${memoObj.weather.temp}` : '';
+
+                // 투두 및 인라인 일기 데이터 준비
+                let diaryText = memoObj && memoObj.diary ? memoObj.diary : '';
+                let todoList = memoObj && memoObj.todos ? memoObj.todos : [];
+
+                // 투두 HTML 생성
+                let todoItemsHTML = todoList.map((todo, idx) => `
+                    <div class="flex items-center justify-between gap-1 py-1 px-1.5 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg group">
+                        <label class="flex items-center gap-2 cursor-pointer flex-1 min-w-0">
+                            <input type="checkbox" ${todo.done ? 'checked' : ''} onchange="toggleWeeklyTodo('${dateStr}', ${idx})" class="w-3.5 h-3.5 rounded border-slate-300 dark:border-slate-600 text-indigo-600 focus:ring-indigo-500">
+                            <span class="text-xs truncate ${todo.done ? 'line-through text-slate-400 dark:text-slate-650' : 'text-slate-700 dark:text-slate-300'}">${todo.text}</span>
+                        </label>
+                        <button onclick="deleteWeeklyTodo('${dateStr}', ${idx})" class="text-[10px] text-slate-400 hover:text-rose-500 transition opacity-0 group-hover:opacity-100 px-1">
+                            <i class="fa-regular fa-trash-can"></i>
+                        </button>
+                    </div>
+                `).join('');
+
+                const card = document.createElement('div');
+                card.className = `flex flex-col bg-white dark:bg-slate-900 border rounded-2xl ${borderTheme} shadow-sm overflow-hidden min-h-[460px]`;
+                card.innerHTML = `
+                    <!-- 카드 헤더 -->
+                    <div class="p-3 border-b border-slate-100 dark:border-slate-800/80 flex flex-col gap-1 ${headerBg}">
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs font-bold px-2 py-0.5 rounded bg-white/80 dark:bg-slate-800 border dark:border-slate-700 text-slate-500 dark:text-slate-400 shadow-sm">${dayOfWeekName}요일</span>
+                            <div class="flex items-center gap-1.5">
+                                ${isToday ? '<span class="text-[9px] font-extrabold bg-indigo-600 text-white px-1.5 py-0.5 rounded shadow-sm">TODAY</span>' : ''}
+                                <span class="text-xs text-slate-500 dark:text-slate-400 font-bold">${lunar.formatted}</span>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-baseline mt-1">
+                            <span class="text-lg font-black tracking-tight ${textDayColor}">${day}일</span>
+                            ${holidayName ? `<span class="text-[9px] text-rose-500 font-bold max-w-[80px] truncate leading-none">${holidayName}</span>` : ''}
+                        </div>
+                        <div class="flex items-center gap-1.5 mt-0.5 text-xs text-slate-500 dark:text-slate-400 font-semibold min-h-[16px]">
+                            ${moodEmoji ? `<span>기분 ${moodEmoji}</span>` : ''}
+                            ${weatherEmoji ? `<span>날씨 ${weatherEmoji}${weatherTemp}</span>` : ''}
+                        </div>
+                    </div>
+
+                    <!-- 투두 리스트 섹션 -->
+                    <div class="p-3 flex-1 flex flex-col border-b border-slate-100 dark:border-slate-800/85">
+                        <div class="flex justify-between items-center mb-1.5">
+                            <span class="text-xs font-bold text-slate-400 dark:text-slate-500 flex items-center gap-1">
+                                <i class="fa-solid fa-list-check text-indigo-500"></i> 투두 리스트
+                            </span>
+                            <span class="text-[10px] font-bold text-slate-400">${todoList.length}개</span>
+                        </div>
+                        
+                        <div class="flex-1 overflow-y-auto space-y-0.5 max-h-[120px] mb-2 pr-1 custom-scroll" id="todo-list-${dateStr}">
+                            ${todoItemsHTML ? todoItemsHTML : '<p class="text-[11px] text-slate-400 text-center py-5">할 일이 없습니다.</p>'}
+                        </div>
+
+                        <div class="flex gap-1 mt-auto">
+                            <input type="text" id="todo-input-${dateStr}" placeholder="할 일 추가..." class="flex-1 px-2.5 py-1 text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:text-white">
+                            <button onclick="addWeeklyTodo('${dateStr}')" class="p-1 bg-indigo-50 hover:bg-indigo-100 dark:bg-indigo-950 dark:hover:bg-indigo-900 text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-900 rounded-xl text-xs font-bold w-7 h-7 flex items-center justify-center transition active:scale-90"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- 인라인 일기장 (Auto-Save 지원) -->
+                    <div class="p-3 flex-1 flex flex-col bg-indigo-50/15 dark:bg-indigo-950/5">
+                        <span class="text-xs font-bold text-slate-400 dark:text-slate-500 flex items-center gap-1 mb-1.5">
+                            <i class="fa-solid fa-pen-nib text-indigo-500"></i> 오늘의 일기
+                        </span>
+                        <textarea onblur="saveWeeklyDiary('${dateStr}', this.value)" placeholder="이곳에 하루의 생각이나 메모를 직접 적어보세요... (클릭 바깥 시 자동 저장)" class="w-full flex-1 p-2 bg-white dark:bg-slate-800 border border-slate-200/60 dark:border-slate-700/60 rounded-xl text-xs outline-none focus:ring-2 focus:ring-indigo-500/80 resize-none dark:text-white text-slate-700 leading-relaxed">${diaryText}</textarea>
+                    </div>
+
+                    <!-- 상세 설정 연동 모달 바인딩 -->
+                    <div class="p-2 bg-slate-50/50 dark:bg-slate-900 border-t border-slate-100 dark:border-slate-800/60 flex justify-between gap-1 text-center">
+                        ${memoObj && (memoObj.text) ? `
+                            <div class="flex-1 text-[10px] bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 px-2 py-1 rounded-lg truncate text-left font-semibold cursor-pointer" onclick="openWeeklyDetailModal('${year}', '${month}', '${day}', '${dateStr}')" title="${memoObj.text}">
+                                <i class="fa-regular fa-bell mr-0.5"></i> ${memoObj.text}
+                            </div>
+                        ` : `
+                            <span class="text-[10px] text-slate-400 p-1 font-semibold leading-normal">등록된 알림 스케줄 없음</span>
+                        `}
+                        <button onclick="openWeeklyDetailModal('${year}', '${month}', '${day}', '${dateStr}')" class="px-2 py-1 bg-white hover:bg-slate-150 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-[10px] font-bold text-slate-600 dark:text-slate-350 rounded-lg shadow-sm shrink-0 transition active:scale-95">상세 편집 <i class="fa-solid fa-chevron-right text-[8px] ml-0.5"></i></button>
+                    </div>
+                `;
+
+                weeklyGrid.appendChild(card);
+            }
+        }
+
+        /**
+         * 주간 To-Do 추가 로직
+         */
+        window.addWeeklyTodo = function(dateStr) {
+            const input = document.getElementById(`todo-input-${dateStr}`);
+            const text = input.value.trim();
+            if (!text) return;
+
+            if (!state.memos[dateStr]) {
+                state.memos[dateStr] = { text: '', color: 'blue', isDDay: false, repeat: null, mood: '', weather: null, todos: [], diary: '' };
+            } else if (!state.memos[dateStr].todos) {
+                state.memos[dateStr].todos = [];
+            }
+
+            state.memos[dateStr].todos.push({ text: text, done: false });
+            localStorage.setItem(MEMO_STORAGE_KEY, JSON.stringify(state.memos));
+            renderWeeklyView();
+            showToast('할 일이 리스트에 추가되었습니다.');
+        }
+
+        /**
+         * 주간 To-Do 상태 변경 로직
+         */
+        window.toggleWeeklyTodo = function(dateStr, idx) {
+            if (state.memos[dateStr] && state.memos[dateStr].todos && state.memos[dateStr].todos[idx]) {
+                state.memos[dateStr].todos[idx].done = !state.memos[dateStr].todos[idx].done;
+                localStorage.setItem(MEMO_STORAGE_KEY, JSON.stringify(state.memos));
+                renderWeeklyView();
+            }
+        }
+
+        /**
+         * 주간 To-Do 삭제 로직
+         */
+        window.deleteWeeklyTodo = function(dateStr, idx) {
+            if (state.memos[dateStr] && state.memos[dateStr].todos && state.memos[dateStr].todos[idx]) {
+                state.memos[dateStr].todos.splice(idx, 1);
+                localStorage.setItem(MEMO_STORAGE_KEY, JSON.stringify(state.memos));
+                renderWeeklyView();
+                showToast('할 일이 완전히 삭제되었습니다.');
+            }
+        }
+
+        /**
+         * 인라인 다이어리 내용 자동 저장 로직 (Blur 포커스 이웃 시)
+         */
+        window.saveWeeklyDiary = function(dateStr, value) {
+            const cleanVal = value.trim();
+            
+            if (!state.memos[dateStr]) {
+                if (cleanVal) {
+                    state.memos[dateStr] = { text: '', color: 'blue', isDDay: false, repeat: null, mood: '', weather: null, todos: [], diary: cleanVal };
+                }
+            } else {
+                state.memos[dateStr].diary = cleanVal;
+            }
+
+            localStorage.setItem(MEMO_STORAGE_KEY, JSON.stringify(state.memos));
+            calculateWellnessStatistics(); 
+            showToast('일기가 보관 처리되었습니다.');
+        }
+
+        /**
+         * 주간 다이어리 카드에서 상세 편집 모달 연결 구동
+         */
+        window.openWeeklyDetailModal = function(year, month, day, dateStr) {
+            const lunar = getLunarDate(Number(year), Number(month), Number(day));
+            openMemoModal(Number(year), Number(month) - 1, Number(day), lunar);
+        }
+
         function renderThreeMonths() {
+            // 현재 활성화 모드에 따른 분기 드로잉 실행
+            if (state.viewMode === 'weekly') {
+                renderWeeklyView();
+                updateMonthlyScheduleBoard();
+                updateDDayBoard();
+                calculateWellnessStatistics();
+                return;
+            }
+
             const current = new Date(state.currentDate);
 
             const prev = new Date(current.getFullYear(), current.getMonth() - 1, 1);
@@ -864,7 +1138,7 @@
                 if (holidayName) textColorClass = "text-rose-500 font-extrabold"; 
 
                 if (!isCurrentMonthDate) {
-                    textColorClass = "text-slate-300 dark:text-slate-650 dark:text-slate-600"; 
+                    textColorClass = "text-slate-350 dark:text-slate-600"; 
                 }
 
                 if (isMain && isCurrentMonthDate) {
@@ -890,15 +1164,19 @@
                 let memoIndicatorHTML = '';
                 let cellMemoPreviewHTML = '';
                 let moodEmojiHTML = '';
+                let weatherBadgeHTML = '';
 
                 if (memoObj) {
                     const mText = typeof memoObj === 'string' ? memoObj : memoObj.text;
                     const mColor = typeof memoObj === 'string' ? 'amber' : (memoObj.color || 'amber');
                     const colorScheme = COLOR_MAP[mColor] || COLOR_MAP.amber;
 
-                    memoIndicatorHTML = `<span class="w-2 h-2 rounded-full ${colorScheme.badge} animate-pulse absolute top-1.5 right-1.5" title="일정 있음"></span>`;
+                    // 스케줄 알림이 존재할 시 닷 표시
+                    if (mText) {
+                        memoIndicatorHTML = `<span class="w-2 h-2 rounded-full ${colorScheme.badge} animate-pulse absolute top-1.5 right-1.5" title="일정 있음"></span>`;
+                    }
                     
-                    if (isMain) {
+                    if (isMain && mText) {
                         const iconPrefix = memoObj.repeat ? '🔄 ' : (memoObj.isDDay ? '⚡ ' : '');
                         cellMemoPreviewHTML = `
                         <span class="text-[9px] ${colorScheme.text} ${colorScheme.bg} px-1.5 py-0.5 rounded mt-1 truncate max-w-full font-semibold hidden sm:block border ${colorScheme.border}">
@@ -908,6 +1186,15 @@
 
                     if (memoObj.mood && MOOD_EMOJI_MAP[memoObj.mood]) {
                         moodEmojiHTML = `<span class="text-xs md:text-sm mr-1" title="${memoObj.mood}">${MOOD_EMOJI_MAP[memoObj.mood]}</span>`;
+                    }
+
+                    if (memoObj.weather && memoObj.weather.emoji) {
+                        const tempText = memoObj.weather.temp ? ` ${memoObj.weather.temp}` : '';
+                        weatherBadgeHTML = `
+                            <span class="text-[9px] font-bold text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 px-1 py-0.5 rounded flex items-center gap-0.5 shrink-0 ml-1">
+                                ${memoObj.weather.emoji}${tempText}
+                            </span>
+                        `;
                     }
                 }
 
@@ -920,7 +1207,10 @@
                             </div>
                             ${holidayName ? `<span class="text-[8px] md:text-[9px] text-rose-500 font-bold leading-tight truncate max-w-[50px]">${holidayName}</span>` : ''}
                         </div>
-                        ${memoIndicatorHTML}
+                        <div class="flex items-center">
+                            ${weatherBadgeHTML}
+                            ${memoIndicatorHTML}
+                        </div>
                     </div>
                     <div class="flex flex-col w-full mt-0.5">
                         <span class="text-[9px] md:text-[10px] text-slate-400 dark:text-slate-550 font-medium block leading-none">음 ${lunar.formatted}</span>
@@ -936,11 +1226,6 @@
             }
         }
 
-        /**
-         * -------------------------------------------------------------
-         * 3-1. 실무전용: 3분할 뷰 / 단일 월 뷰 가변 레이아웃 엔진
-         * -------------------------------------------------------------
-         */
         function applyLayoutExpansion(isExpanded) {
             state.isExpanded = isExpanded;
             localStorage.setItem('CALENDAR_EXPANDED', isExpanded ? 'true' : 'false');
@@ -973,11 +1258,6 @@
             applyLayoutExpansion(!state.isExpanded);
         });
 
-        /**
-         * -------------------------------------------------------------
-         * 3-2. 이달의 마음케어 리포트 통계 연산기
-         * -------------------------------------------------------------
-         */
         function calculateWellnessStatistics() {
             const current = state.currentDate;
             const currentYear = current.getFullYear();
@@ -1007,11 +1287,6 @@
             document.getElementById('happyProgressBar').style.width = `${happyRatio}%`;
         }
 
-        /**
-         * -------------------------------------------------------------
-         * 4. 실무 및 라이프: 스케줄 브리핑 및 검색 기능 (기념일 통합 지원)
-         * -------------------------------------------------------------
-         */
         function updateMonthlyScheduleBoard(searchKeyword = '') {
             const listContainer = document.getElementById('monthlyScheduleList');
             listContainer.innerHTML = '';
@@ -1030,6 +1305,7 @@
                 const mColor = memoObj.color || 'amber';
 
                 const moodText = memoObj.mood ? ` [기분: ${MOOD_EMOJI_MAP[memoObj.mood]}]` : '';
+                const weatherText = memoObj.weather && memoObj.weather.emoji ? ` [날씨: ${memoObj.weather.emoji} ${memoObj.weather.temp || ''}]` : '';
 
                 if (searchKeyword && !mText.toLowerCase().includes(searchKeyword.toLowerCase()) && !dateStr.includes(searchKeyword)) {
                     return; 
@@ -1047,7 +1323,7 @@
                 card.innerHTML = `
                     <div class="flex justify-between items-center">
                         <span class="text-[11px] font-bold ${colorScheme.textLight} flex items-center gap-1">
-                            <i class="fa-regular fa-calendar-check"></i> ${dateStr} ${moodText}
+                            <i class="fa-regular fa-calendar-check"></i> ${dateStr}${moodText}${weatherText}
                         </span>
                         <div class="flex items-center gap-1">
                             ${memoObj.repeat ? `<span class="text-[9px] px-1.5 py-0.5 bg-amber-500 text-white rounded font-bold flex items-center gap-0.5"><i class="fa-solid fa-cake-candles text-[8px]"></i> 매년 ${memoObj.repeat.type === 'solar' ? '양력' : '음력'}</span>` : ''}
@@ -1057,7 +1333,7 @@
                             </span>
                         </div>
                     </div>
-                    <p class="text-xs text-slate-800 dark:text-slate-100 font-medium whitespace-pre-wrap truncate max-w-full">${mText ? mText : '감정 기록됨'}</p>
+                    <p class="text-xs text-slate-800 dark:text-slate-100 font-medium whitespace-pre-wrap truncate max-w-full">${mText ? mText : '데일리로그 기록됨'}</p>
                 `;
 
                 card.addEventListener('click', () => {
@@ -1066,7 +1342,7 @@
                     renderThreeMonths();
                     const lunar = getLunarDate(y, m, d);
                     openMemoModal(y, m - 1, d, lunar);
-                    closeSidebar(); // 요약 클릭 시 쾌적한 화면 전환을 위해 서랍을 닫아줍니다.
+                    closeSidebar(); 
                 });
 
                 listContainer.appendChild(card);
@@ -1083,11 +1359,6 @@
             }
         }
 
-        /**
-         * -------------------------------------------------------------
-         * 5. 실무전용: 중요 D-Day 리스트 생성 및 자동 연산 (반복 일정 연동)
-         * -------------------------------------------------------------
-         */
         function updateDDayBoard() {
             const ddayContainer = document.getElementById('ddayList');
             ddayContainer.innerHTML = '';
@@ -1161,8 +1432,8 @@
                 card.className = "w-full flex items-center justify-between p-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-left hover:bg-slate-100 dark:hover:bg-slate-700 transition";
                 card.innerHTML = `
                     <div class="flex-1 min-w-0 pr-2">
-                        <p class="text-[10px] text-slate-400 dark:text-slate-500 font-bold">${dateStr} ${memoObj.repeat ? '🔄' : ''}</p>
-                        <p class="text-xs font-bold text-slate-700 dark:text-slate-200 truncate">${memoObj.text}</p>
+                        <p class="text-[10px] text-slate-400 dark:text-slate-550 font-bold">${dateStr} ${memoObj.repeat ? '🔄' : ''}</p>
+                        <p class="text-xs font-bold text-slate-700 dark:text-slate-200 truncate">${memoObj.text || '할 일 일지 없음'}</p>
                     </div>
                     <span class="text-[10px] font-extrabold px-2.5 py-1 rounded-lg ${badgeClass} shrink-0">${ddayLabel}</span>
                 `;
@@ -1173,7 +1444,7 @@
                     renderThreeMonths();
                     const lunar = getLunarDate(y, m, d);
                     openMemoModal(y, m - 1, d, lunar);
-                    closeSidebar(); // 쾌적한 전면 캘린더 집중을 위해 도구 서랍을 닫아줍니다.
+                    closeSidebar(); 
                 });
 
                 ddayContainer.appendChild(card);
@@ -1188,11 +1459,6 @@
             updateMonthlyScheduleBoard(e.target.value.trim());
         });
 
-        /**
-         * -------------------------------------------------------------
-         * 5-1. 도구 서랍(사이드 바) 제어 엔진
-         * -------------------------------------------------------------
-         */
         const sidebarPanel = document.getElementById('sidebarPanel');
         const sidebarBackdrop = document.getElementById('sidebarBackdrop');
 
@@ -1216,11 +1482,126 @@
         document.getElementById('btnCloseSidebar').addEventListener('click', closeSidebar);
         sidebarBackdrop.addEventListener('click', closeSidebar);
 
-        /**
-         * -------------------------------------------------------------
-         * 6. 인터랙티브 메모 모달 제어 및 도구 로직
-         * -------------------------------------------------------------
-         */
+        async function fetchWithBackoff(url, options = {}, retries = 5, delay = 1000) {
+            try {
+                const response = await fetch(url, options);
+                if (!response.ok) throw new Error(`HTTP 오류! 응답 코드: ${response.status}`);
+                return await response.json();
+            } catch (error) {
+                if (retries === 1) throw error;
+                await new Promise(resolve => setTimeout(resolve, delay));
+                return fetchWithBackoff(url, options, retries - 1, delay * 2);
+            }
+        }
+
+        const WEATHER_WMO_MAP = {
+            0: { emoji: '☀️', text: '맑음' },
+            1: { emoji: '🌤️', text: '구름조금' },
+            2: { emoji: '🌤️', text: '구름조금' },
+            3: { emoji: '☁️', text: '흐림' },
+            45: { emoji: '🌫️', text: '안개' },
+            48: { emoji: '🌫️', text: '안개' },
+            51: { emoji: '🌧️', text: '이슬비' },
+            53: { emoji: '🌧️', text: '이슬비' },
+            55: { emoji: '🌧️', text: '이슬비' },
+            61: { emoji: '🌧️', text: '비' },
+            63: { emoji: '🌧️', text: '비' },
+            65: { emoji: '🌧️', text: '강한 비' },
+            71: { emoji: '❄️', text: '눈' },
+            73: { emoji: '❄️', text: '눈' },
+            75: { emoji: '❄️', text: '폭설' },
+            77: { emoji: '❄️', text: '눈' },
+            80: { emoji: '🌧️', text: '소나기' },
+            81: { emoji: '🌧️', text: '소나기' },
+            82: { emoji: '🌧️', text: '폭우' },
+            85: { emoji: '❄️', text: '눈 소나기' },
+            86: { emoji: '❄️', text: '눈 소나기' },
+            95: { emoji: '⚡', text: '뇌우' },
+            96: { emoji: '⚡', text: '뇌우' },
+            99: { emoji: '⚡', text: '뇌우' }
+        };
+
+        const WEATHER_KEY_EMOJI_MAP = {
+            sunny: '☀️',
+            cloudy: '🌤️',
+            overcast: '☁️',
+            rainy: '🌧️',
+            snowy: '❄️',
+            thunder: '⚡'
+        };
+
+        const WEATHER_KEY_TEXT_MAP = {
+            sunny: '맑음',
+            cloudy: '흐림',
+            overcast: '구름많음',
+            rainy: '비',
+            snowy: '눈',
+            thunder: '뇌우'
+        };
+
+        function fetchWeatherByGeolocation() {
+            const display = document.getElementById('weatherStatusDisplay');
+            const weatherText = document.getElementById('weatherText');
+            const weatherTemp = document.getElementById('weatherTemp');
+
+            display.classList.remove('hidden');
+            weatherText.innerText = 'GPS 위치 좌표를 탐색하는 중...';
+            weatherTemp.innerText = '';
+
+            if (!navigator.geolocation) {
+                weatherText.innerText = '이 브라우저는 위치 서비스를 지원하지 않습니다.';
+                return;
+            }
+
+            navigator.geolocation.getCurrentPosition(async (position) => {
+                const lat = position.coords.latitude;
+                const lon = position.coords.longitude;
+
+                weatherText.innerText = '실시간 기상 데이터 분석 중...';
+
+                const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=weather_code,temperature_2m&timezone=auto`;
+
+                try {
+                    const data = await fetchWithBackoff(url);
+                    const current = data.current;
+
+                    if (current) {
+                        const temp = Math.round(current.temperature_2m);
+                        const code = current.weather_code;
+                        const wmoInfo = WEATHER_WMO_MAP[code] || { emoji: '🌤️', text: '구름조금' };
+
+                        state.selectedWeather = {
+                            emoji: wmoInfo.emoji,
+                            temp: `${temp}°C`,
+                            text: wmoInfo.text
+                        };
+
+                        weatherText.innerText = `현재 위치 날씨: ${wmoInfo.text}`;
+                        weatherTemp.innerText = `${temp}°C`;
+
+                        let matchedKey = '';
+                        if (wmoInfo.emoji === '☀️') matchedKey = 'sunny';
+                        else if (wmoInfo.emoji === '🌤️') matchedKey = 'cloudy';
+                        else if (wmoInfo.emoji === '☁️') matchedKey = 'overcast';
+                        else if (wmoInfo.emoji === '🌧️') matchedKey = 'rainy';
+                        else if (wmoInfo.emoji === '❄️') matchedKey = 'snowy';
+                        else if (wmoInfo.emoji === '⚡') matchedKey = 'thunder';
+
+                        setWeatherSelection(matchedKey);
+                        showToast('날씨 정보가 완전히 동기화되었습니다.');
+                    } else {
+                        weatherText.innerText = '기상 데이터 분석 규격 에러';
+                    }
+                } catch (err) {
+                    weatherText.innerText = '날씨 정보를 읽지 못했습니다. 수동으로 설정해주세요.';
+                }
+            }, (error) => {
+                weatherText.innerText = '위치 탐색 거부됨. 수동 스티커를 이용해주세요.';
+            }, { timeout: 10000 });
+        }
+
+        document.getElementById('btnAutoWeather').addEventListener('click', fetchWeatherByGeolocation);
+
         const memoModal = document.getElementById('memoModal');
         const memoInput = document.getElementById('memoInput');
         const ddayCheckbox = document.getElementById('ddayCheckbox');
@@ -1228,6 +1609,41 @@
         const repeatOptionsContainer = document.getElementById('repeatOptionsContainer');
         const toolsTargetDate = document.getElementById('toolsTargetDate');
         const btnAddToGoogleCalendar = document.getElementById('btnAddToGoogleCalendar');
+        const weatherStatusDisplay = document.getElementById('weatherStatusDisplay');
+
+        const weatherButtons = document.querySelectorAll('.select-btn-weather');
+        weatherButtons.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const targetBtn = e.target.closest('button');
+                const weatherKey = targetBtn.getAttribute('data-weather');
+                setWeatherSelection(weatherKey);
+            });
+        });
+
+        function setWeatherSelection(weatherKey) {
+            weatherButtons.forEach(btn => {
+                const btnKey = btn.getAttribute('data-weather');
+                if (btnKey === weatherKey) {
+                    btn.classList.add('ring-2', 'ring-indigo-500', 'bg-indigo-50', 'dark:bg-indigo-950/40');
+                } else {
+                    btn.classList.remove('ring-2', 'ring-indigo-500', 'bg-indigo-50', 'dark:bg-indigo-950/40');
+                }
+            });
+
+            if (weatherKey === '') {
+                state.selectedWeather = null;
+                weatherStatusDisplay.classList.add('hidden');
+            } else if (WEATHER_KEY_EMOJI_MAP[weatherKey]) {
+                state.selectedWeather = {
+                    emoji: WEATHER_KEY_EMOJI_MAP[weatherKey],
+                    temp: '', 
+                    text: WEATHER_KEY_TEXT_MAP[weatherKey]
+                };
+                weatherStatusDisplay.classList.remove('hidden');
+                document.getElementById('weatherText').innerText = `선택한 날씨: ${WEATHER_KEY_TEXT_MAP[weatherKey]}`;
+                document.getElementById('weatherTemp').innerText = '';
+            }
+        }
 
         const moodButtons = document.querySelectorAll('.select-btn-mood');
         moodButtons.forEach(btn => {
@@ -1305,6 +1721,7 @@
                     memoInput.value = existingMemo;
                     setCategoryColorSelection('amber');
                     setMoodSelection('');
+                    setWeatherSelection('');
                     ddayCheckbox.checked = false;
                     repeatCheckbox.checked = false;
                     repeatOptionsContainer.classList.add('hidden');
@@ -1322,11 +1739,31 @@
                         repeatCheckbox.checked = false;
                         repeatOptionsContainer.classList.add('hidden');
                     }
+
+                    if (existingMemo.weather) {
+                        state.selectedWeather = existingMemo.weather;
+                        weatherStatusDisplay.classList.remove('hidden');
+                        document.getElementById('weatherText').innerText = `기록된 날씨: ${existingMemo.weather.text || '지정됨'}`;
+                        document.getElementById('weatherTemp').innerText = existingMemo.weather.temp || '';
+
+                        let matchedKey = '';
+                        const we = existingMemo.weather.emoji;
+                        if (we === '☀️') matchedKey = 'sunny';
+                        else if (we === '🌤️') matchedKey = 'cloudy';
+                        else if (we === '☁️') matchedKey = 'overcast';
+                        else if (we === '🌧️') matchedKey = 'rainy';
+                        else if (we === '❄️') matchedKey = 'snowy';
+                        else if (we === '⚡') matchedKey = 'thunder';
+                        setWeatherSelection(matchedKey);
+                    } else {
+                        setWeatherSelection('');
+                    }
                 }
             } else {
                 memoInput.value = '';
                 setCategoryColorSelection('blue'); 
                 setMoodSelection('');
+                setWeatherSelection('');
                 ddayCheckbox.checked = false;
                 repeatCheckbox.checked = false;
                 repeatOptionsContainer.classList.add('hidden');
@@ -1351,7 +1788,13 @@
             if (!state.selectedDate) return;
             const content = memoInput.value.trim();
 
-            if (content || state.selectedMood) {
+            if (!state.memos[state.selectedDate]) {
+                state.memos[state.selectedDate] = { text: '', color: 'blue', isDDay: false, repeat: null, mood: '', weather: null, todos: [], diary: '' };
+            }
+
+            const currentData = state.memos[state.selectedDate];
+
+            if (content || state.selectedMood || state.selectedWeather || currentData.todos?.length > 0 || currentData.diary) {
                 const [y, m, d] = state.selectedDate.split('-').map(Number);
                 
                 let repeatConfig = null;
@@ -1374,11 +1817,13 @@
                 }
 
                 state.memos[state.selectedDate] = {
+                    ...currentData,
                     text: content,
                     color: state.selectedColor,
                     isDDay: ddayCheckbox.checked,
                     repeat: repeatConfig,
-                    mood: state.selectedMood
+                    mood: state.selectedMood,
+                    weather: state.selectedWeather 
                 };
             } else {
                 delete state.memos[state.selectedDate];
@@ -1429,7 +1874,10 @@
                 color: state.selectedColor,
                 isDDay: ddayCheckbox.checked,
                 repeat: repeatCheckbox.checked ? originalObj.repeat : null,
-                mood: state.selectedMood
+                mood: state.selectedMood,
+                weather: state.selectedWeather,
+                todos: originalObj.todos ? [...originalObj.todos] : [],
+                diary: originalObj.diary || ''
             };
 
             localStorage.setItem(MEMO_STORAGE_KEY, JSON.stringify(state.memos));
@@ -1443,15 +1891,18 @@
             if (!targetDateVal) return showToast('이동 대상 날짜를 입력하세요.');
             if (targetDateVal === state.selectedDate) return showToast('동일한 날짜로는 이동할 수 없습니다.');
 
-            const currentContent = memoInput.value.trim();
             const originalObj = state.memos[state.selectedDate] || {};
+            const currentContent = memoInput.value.trim();
 
             state.memos[targetDateVal] = {
                 text: currentContent,
                 color: state.selectedColor,
                 isDDay: ddayCheckbox.checked,
                 repeat: repeatCheckbox.checked ? originalObj.repeat : null,
-                mood: state.selectedMood
+                mood: state.selectedMood,
+                weather: state.selectedWeather,
+                todos: originalObj.todos ? [...originalObj.todos] : [],
+                diary: originalObj.diary || ''
             };
             delete state.memos[state.selectedDate];
 
@@ -1462,11 +1913,6 @@
         });
 
 
-        /**
-         * -------------------------------------------------------------
-         * 7. 백업 연동 및 로컬 파일 처리 (JSON & ICS 구글/삼성 연동)
-         * -------------------------------------------------------------
-         */
         document.getElementById('btnLocalExport').addEventListener('click', () => {
             try {
                 const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(state.memos, null, 2));
@@ -1620,11 +2066,6 @@
             window.print();
         });
 
-        /**
-         * -------------------------------------------------------------
-         * 8. GitHub API 백업 연동 모듈
-         * -------------------------------------------------------------
-         */
         const backupModal = document.getElementById('backupModal');
         const backupStatusMsg = document.getElementById('backupStatusMsg');
 
@@ -1773,11 +2214,6 @@
         }
 
 
-        /**
-         * -------------------------------------------------------------
-         * 9. 실무 특화: 테마 제어 시스템 (다크모드 지원)
-         * -------------------------------------------------------------
-         */
         const btnThemeToggle = document.getElementById('btnThemeToggle');
         
         btnThemeToggle.addEventListener('click', () => {
@@ -1795,11 +2231,6 @@
         });
 
 
-        /**
-         * -------------------------------------------------------------
-         * 10. 보조 유틸리티 기능 및 제스처, 이벤트 리스너 바인딩
-         * -------------------------------------------------------------
-         */
         function showToast(text) {
             const toast = document.getElementById('toast');
             document.getElementById('toastText').innerText = text;
@@ -1813,12 +2244,22 @@
         }
 
         document.getElementById('btnPrevMonth').addEventListener('click', () => {
-            state.currentDate.setMonth(state.currentDate.getMonth() - 1);
+            if (state.viewMode === 'weekly') {
+                // 주간 모드 시에는 7일 전으로 이동
+                state.currentDate.setDate(state.currentDate.getDate() - 7);
+            } else {
+                state.currentDate.setMonth(state.currentDate.getMonth() - 1);
+            }
             renderThreeMonths();
         });
 
         document.getElementById('btnNextMonth').addEventListener('click', () => {
-            state.currentDate.setMonth(state.currentDate.getMonth() + 1);
+            if (state.viewMode === 'weekly') {
+                // 주간 모드 시에는 7일 후로 이동
+                state.currentDate.setDate(state.currentDate.getDate() + 7);
+            } else {
+                state.currentDate.setMonth(state.currentDate.getMonth() + 1);
+            }
             renderThreeMonths();
         });
 
@@ -1847,12 +2288,12 @@
         let touchEndX = 0;
 
         document.addEventListener('touchstart', (e) => {
-            if (!memoModal.classList.contains('hidden') || !backupModal.classList.contains('hidden')) return;
+            if (!memoModal.classList.contains('hidden') || !backupModal.classList.contains('hidden') || !sidebarPanel.classList.contains('-translate-x-full')) return;
             touchStartX = e.changedTouches[0].screenX;
         }, { passive: true });
 
         document.addEventListener('touchend', (e) => {
-            if (!memoModal.classList.contains('hidden') || !backupModal.classList.contains('hidden')) return;
+            if (!memoModal.classList.contains('hidden') || !backupModal.classList.contains('hidden') || !sidebarPanel.classList.contains('-translate-x-full')) return;
             touchEndX = e.changedTouches[0].screenX;
             handleSwipeGesture();
         }, { passive: true });
@@ -1863,22 +2304,57 @@
 
             if (Math.abs(difference) > threshold) {
                 if (difference > 0) {
-                    state.currentDate.setMonth(state.currentDate.getMonth() + 1);
-                    renderThreeMonths();
-                    showToast('다음 달로 전환');
+                    if (state.viewMode === 'weekly') {
+                        state.currentDate.setDate(state.currentDate.getDate() + 7);
+                        showToast('다음 주로 전환');
+                    } else {
+                        state.currentDate.setMonth(state.currentDate.getMonth() + 1);
+                        showToast('다음 달로 전환');
+                    }
                 } else {
-                    state.currentDate.setMonth(state.currentDate.getMonth() - 1);
-                    renderThreeMonths();
-                    showToast('이전 달로 전환');
+                    if (state.viewMode === 'weekly') {
+                        state.currentDate.setDate(state.currentDate.getDate() - 7);
+                        showToast('이전 주로 전환');
+                    } else {
+                        state.currentDate.setMonth(state.currentDate.getMonth() - 1);
+                        showToast('이전 달로 전환');
+                    }
                 }
+                renderThreeMonths();
             }
         }
 
         /**
-         * -------------------------------------------------------------
-         * 11. 마이그레이션 및 시스템 로딩
-         * -------------------------------------------------------------
+         * 월 표시란을 더블클릭/더블탭하면 오늘 날짜로 즉시 복원
          */
+        const handleGoToToday = () => {
+            state.currentDate = new Date();
+            renderThreeMonths();
+            showToast('오늘 날짜로 이동했습니다.');
+        };
+
+        document.getElementById('currentPeriodLabel').addEventListener('dblclick', handleGoToToday);
+        document.getElementById('mainMonthTitle').addEventListener('dblclick', handleGoToToday);
+        document.getElementById('prevMonthTitle').addEventListener('dblclick', handleGoToToday);
+        document.getElementById('nextMonthTitle').addEventListener('dblclick', handleGoToToday);
+
+        let lastTapTime = 0;
+        const handleDoubleTapGesture = (e) => {
+            const currentTime = Date.now();
+            const tapGap = currentTime - lastTapTime;
+            if (tapGap < 300 && tapGap > 0) {
+                e.preventDefault(); 
+                handleGoToToday();
+            }
+            lastTapTime = currentTime;
+        };
+
+        document.getElementById('currentPeriodLabel').addEventListener('touchend', handleDoubleTapGesture);
+        document.getElementById('mainMonthTitle').addEventListener('touchend', handleDoubleTapGesture);
+        document.getElementById('prevMonthTitle').addEventListener('touchend', handleDoubleTapGesture);
+        document.getElementById('nextMonthTitle').addEventListener('touchend', handleDoubleTapGesture);
+
+
         window.onload = function() {
             const oldStorage = localStorage.getItem('SMART_CALENDAR_MEMOS_v1');
             const newStorage = localStorage.getItem(MEMO_STORAGE_KEY);
@@ -1896,7 +2372,10 @@
                             color: 'amber',
                             isDDay: false,
                             repeat: null,
-                            mood: ''
+                            mood: '',
+                            weather: null,
+                            todos: [],
+                            diary: ''
                         };
                     });
                     localStorage.setItem(MEMO_STORAGE_KEY, JSON.stringify(state.memos));
@@ -1909,7 +2388,6 @@
             loadGitConfig();
             renderThreeMonths();
 
-            // PWA Manifest 동적 빌딩
             try {
                 const appIcon = document.querySelector('link[rel="apple-touch-icon"]').getAttribute('href');
                 const manifestObj = {
