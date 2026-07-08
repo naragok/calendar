@@ -320,8 +320,8 @@
                     <div>금</div>
                     <div class="text-sky-400">토</div>
                 </div>
-                <div class="grid grid-cols-7 gap-1 flex-1 content-start" id="nextMonthGridContainer">
-                    <div id="nextMonthGrid" class="grid grid-cols-7 gap-1 flex-1 content-start"></div>
+                <div id="nextMonthGrid" class="grid grid-cols-7 gap-1 flex-1 content-start">
+                    <!-- 동적 생성 -->
                 </div>
             </section>
 
@@ -1005,7 +1005,7 @@
                             <!-- [좌측 할일 체크리스트] -->
                             <div class="flex flex-col bg-slate-50/40 dark:bg-slate-950/20 border border-slate-100 dark:border-slate-800/40 rounded-2xl p-3.5 h-full min-h-[180px]">
                                 <div class="flex justify-between items-center mb-2.5">
-                                    <span class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wide flex items-center gap-1.5">
+                                    <span class="text-xs font-bold text-slate-400 dark:text-slate-550 uppercase tracking-wide flex items-center gap-1.5">
                                         <i class="fa-solid fa-list-check text-indigo-500"></i> 오늘의 To-Do
                                     </span>
                                     <span class="text-xs font-bold text-indigo-600 bg-indigo-50 dark:bg-indigo-950/40 px-2 py-0.5 rounded-full">${doneCount}/${todoList.length} 완료</span>
@@ -1013,9 +1013,11 @@
                                 <div class="flex-1 overflow-y-auto space-y-1 max-h-[140px] pr-1 mb-3" id="todo-list-${dateStr}">
                                     ${todoItemsHTML ? todoItemsHTML : '<p class="text-xs text-slate-400 text-center py-8">남은 할 일이 없습니다. 오늘 일정을 가볍게 등록해 볼까요?</p>'}
                                 </div>
-                                <div class="flex gap-2 mt-auto">
+                                <div class="flex gap-2 mt-auto items-center">
                                     <input type="text" id="todo-input-${dateStr}" onkeydown="if(event.key === 'Enter') { event.preventDefault(); addWeeklyTodo('${dateStr}'); }" placeholder="기억할 할 일을 입력해 주세요..." class="flex-1 px-3 py-2 text-xs bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:text-white shadow-inner">
-                                    <button type="button" onclick="addWeeklyTodo('${dateStr}')" class="px-3.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold flex items-center justify-center transition active:scale-95 shadow-sm"><i class="fa-solid fa-plus mr-1"></i> 추가</button>
+                                    <button type="button" onclick="addWeeklyTodo('${dateStr}')" class="w-[38px] h-[38px] bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl flex items-center justify-center transition active:scale-95 shadow-sm shrink-0" title="할 일 추가">
+                                        <i class="fa-solid fa-plus text-sm"></i>
+                                    </button>
                                 </div>
                             </div>
 
