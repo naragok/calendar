@@ -1,0 +1,1838 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>3분할 스마트 실무 음력 캘린더</title>
+    
+    <!-- iOS / iPadOS Safari 홈 화면 바로가기 전용 메타 & 아이콘 -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="스마트캘린더">
+    
+    <!-- 고해상도 벡터 그래픽 SVG 앱 아이콘 데이터셋 (Base64) -->
+    <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjNjM2NmYxIi8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMzczMGEzIi8+PC9saW5lYXJHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9Im0iIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjZmJiZjI0Ii8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjZjU5ZTBiIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3Qgd2lkdGg9IjUxMiIgaGVpZ2h0PSI1MTIiIHJ4PSIxMjAiIGZpbGw9InVybCgjZykiLz48cmVjdCB4PSIxMDAiIHk9IjEzMCIgd2lkdGg9IjMxMiIgaGVpZ2h0PSIyODAiIHJ4PSI0MCIgZmlsbD0iI2ZmZmZmZiIvPjxwYXRoIGQ9Ik0xMDAgMTMwaDMxMnY3MEgxMDB6IiBmaWxsPSIjNGY0NmU1Ii8+PGNpcmNsZSBjeD0iMTYwIiBjeT0iMTMwIiByPSIxNSIgZmlsbD0iI2UyZThmMCIvPjxjaXJjbGUgY3g9IjM1MiIgY3k9IjEzMCIgcj0iMTUiIGZpbGw9IiNlMmU4ZjAiLz48dGV4dCB4PSIyNTYiIHk9IjM1MCIgZm9udC1mYW1pbHk9InN5c3RlbS11aSwtYXBwbGUtc3lzdGVtLHNhbnMtc2VyaWYiIGZvbnQtd2VpZ2h0PSJib2xkIiBmb250LXNpemU9IjE0MCIgZmlsbD0iIzFlMWI0YiIgdGV4dC1hbmNob3I9Im1pZGRsZSI+MzwvdGV4dD48bGF0aCBkPSJNMzQwIDIzMGEzMCAzMCAwIDEgMCAzMCAzMCAzMCAzMCAwIDAgMS0zMC0zMHoiIGZpbGw9InVybCgjbSkiLz48L3N2Zz4=">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjNjM2NmYxIi8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMzczMGEzIi8+PC9saW5lYXJHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9Im0iIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjZmJiZjI0Ii8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjZjU5ZTBiIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3Qgd2lkdGg9IjUxMiIgaGVpZ2h0PSI1MTIiIHJ4PSIxMjAiIGZpbGw9InVybCgjZykiLz48cmVjdCB4PSIxMDAiIHk9IjEzMCIgd2lkdGg9IjMxMiIgaGVpZ2h0PSIyODAiIHJ4PSI0MCIgZmlsbD0iI2ZmZmZmZiIvPjxwYXRoIGQ9Ik0xMDAgMTMwaDMxMnY3MEgxMDB6IiBmaWxsPSIjNGY0NmU1Ii8+PGNpcmNsZSBjeD0iMTYwIiBjeT0iMTMwIiByPSIxNSIgZmlsbD0iI2UyZThmMCIvPjxjaXJjbGUgY3g9IjM1MiIgY3k9IjEzMCIgcj0iMTUiIGZpbGw9IiNlMmU4ZjAiLz48dGV4dCB4PSIyNTYiIHk9IjM1MCIgZm9udC1mYW1pbHk9InN5c3RlbS11aSwtYXBwbGUtc3lzdGVtLHNhbnMtc2VyaWYiIGZvbnQtd2VpZ2h0PSJib2xkIiBmb250LXNpemU9IjE0MCIgZmlsbD0iIzFlMWI0YiIgdGV4dC1hbmNob3I9Im1pZGRsZSI+MzwvdGV4dD48cGF0aCBkPSJNMzQwIDIzMGEzMCAzMCAwIDEgMCAzMCAzMCAzMCAzMCAwIDAgMS0zMC0zMHoiIGZpbGw9InVybCgjbSkiLz48L3N2Zz4=">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        // 테마 설정을 조기에 반영하기 위한 가드
+        if (localStorage.getItem('theme') === 'dark') {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+    <style>
+        /* 터치 시 파란 하이라이트 제거 */
+        * {
+            -webkit-tap-highlight-color: transparent;
+        }
+        /* 스크롤바 커스텀 */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.05);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 3px;
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: #475569;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        /* 인쇄 최적화 스타일 */
+        @media print {
+            body {
+                background: white !important;
+                color: black !important;
+            }
+            header, footer, #btnOpenBackup, #sidebarPanel, .no-print {
+                display: none !important;
+            }
+            main {
+                display: block !important;
+                width: 100% !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+            section {
+                border: 1px solid #94a3b8 !important;
+                box-shadow: none !important;
+                margin-bottom: 20px !important;
+                page-break-inside: avoid;
+            }
+            .grid {
+                gap: 1px !important;
+            }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100 min-h-screen flex flex-col font-sans select-none transition-colors duration-200">
+
+    <!-- 상단 헤더 및 컨트롤러 -->
+    <header class="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 sticky top-0 z-30 shadow-sm px-4 py-3">
+        <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
+            <!-- 로고 및 홈 버튼 -->
+            <div class="flex items-center space-x-3">
+                <button id="btnHome" class="p-2.5 bg-indigo-50 text-indigo-600 dark:bg-indigo-950/50 dark:text-indigo-400 rounded-xl hover:bg-indigo-100 dark:hover:bg-indigo-900 active:scale-95 transition-all duration-150 shadow-sm" title="오늘 날짜로 이동">
+                    <i class="fa-solid fa-house text-lg"></i>
+                </button>
+                <button id="btnThemeToggle" class="p-2.5 bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-amber-400 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-700 active:scale-95 transition-all" title="테마 변경">
+                    <i class="fa-solid fa-moon dark:hidden"></i>
+                    <i class="fa-solid fa-sun hidden dark:block"></i>
+                </button>
+                <h1 class="text-lg md:text-xl font-bold text-slate-800 dark:text-white flex items-center gap-2">
+                    <i class="fa-regular fa-calendar-check text-indigo-600 dark:text-indigo-400"></i>
+                    <span class="hidden sm:inline">스마트 비즈니스 캘린더</span>
+                </h1>
+            </div>
+
+            <!-- 현재 표시 월 네비게이션 -->
+            <div class="flex items-center bg-slate-100 dark:bg-slate-800 rounded-xl p-1 shadow-inner">
+                <button id="btnPrevMonth" class="px-3 py-1.5 text-slate-600 dark:text-slate-400 hover:bg-white dark:hover:bg-slate-700 hover:text-slate-900 dark:hover:text-white rounded-lg active:scale-95 transition-all">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </button>
+                <span id="currentPeriodLabel" class="px-4 font-bold text-slate-700 dark:text-slate-200 min-w-[120px] text-center text-sm md:text-base">
+                    2026년 07월
+                </span>
+                <button id="btnNextMonth" class="px-3 py-1.5 text-slate-600 dark:text-slate-400 hover:bg-white dark:hover:bg-slate-700 hover:text-slate-900 dark:hover:text-white rounded-lg active:scale-95 transition-all">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+            </div>
+
+            <!-- 실무 도구 모음 (인쇄, 파일 내보내기, 백업, 캘린더 연동) -->
+            <div class="flex items-center space-x-2">
+                <!-- 3분할 확장/축소 토글 버튼 -->
+                <button id="btnToggleExpand" class="flex items-center gap-1.5 px-3 py-2.5 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-900 rounded-xl text-sm font-semibold hover:bg-indigo-100 dark:hover:bg-indigo-900 active:scale-95 transition-all" title="캘린더 레이아웃 확장">
+                    <i id="expandIcon" class="fa-solid fa-expand"></i>
+                    <span id="expandText" class="hidden md:inline">3분할 확장</span>
+                </button>
+
+                <button id="btnPrint" class="p-2.5 bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-700 transition active:scale-95" title="캘린더 출력하기">
+                    <i class="fa-solid fa-print"></i>
+                </button>
+                
+                <!-- JSON 파일 백업/복원 -->
+                <input type="file" id="localFileImport" class="hidden" accept=".json">
+                <button id="btnLocalExport" class="p-2.5 bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-700 transition active:scale-95" title="로컬 백업 파일로 내보내기 (JSON)">
+                    <i class="fa-solid fa-file-export"></i>
+                </button>
+                <button id="btnLocalImport" class="p-2.5 bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-700 transition active:scale-95" title="로컬 백업 파일 가져오기 (JSON)">
+                    <i class="fa-solid fa-file-import"></i>
+                </button>
+
+                <!-- 구글/삼성 연동용 ICS 백업/복원 -->
+                <input type="file" id="icsFileImport" class="hidden" accept=".ics">
+                <button id="btnIcsExport" class="p-2.5 bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-900/50 rounded-xl hover:bg-blue-100 dark:hover:bg-blue-900/50 transition active:scale-95" title="구글/삼성 캘린더용 ICS 파일 내보내기">
+                    <i class="fa-regular fa-calendar-plus"></i>
+                </button>
+                <button id="btnIcsImport" class="p-2.5 bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-900/50 rounded-xl hover:bg-blue-100 dark:hover:bg-blue-900/50 transition active:scale-95" title="구글/삼성 캘린더 대량 일정 가져오기 (ICS)">
+                    <i class="fa-solid fa-calendar-plus"></i>
+                </button>
+
+                <button id="btnOpenBackup" class="flex items-center gap-1.5 px-3 py-2 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 hover:bg-emerald-100 dark:hover:bg-emerald-900/50 border border-emerald-200 dark:border-emerald-800 rounded-xl text-sm font-semibold transition active:scale-95">
+                    <i class="fa-brands fa-github text-base"></i>
+                    <span class="hidden md:inline">GitHub 백업</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- 실무 메인 레이아웃 (좌측 검색/요약 패널 + 캘린더 3분할 본문) -->
+    <div class="flex-1 max-w-7xl w-full mx-auto p-4 flex flex-col lg:flex-row gap-4 overflow-hidden">
+        
+        <!-- [실무 전용 패널] 일정 검색, 디데이 및 이달의 할일 모아보기 -->
+        <aside id="sidebarPanel" class="w-full lg:w-80 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-4 shadow-sm flex flex-col gap-4 no-print shrink-0">
+            <!-- 1. 일정 실시간 검색창 -->
+            <div>
+                <h3 class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                    <i class="fa-solid fa-magnifying-glass"></i> 실무 스케줄 검색
+                </h3>
+                <div class="relative">
+                    <input type="text" id="scheduleSearchInput" class="w-full pl-9 pr-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:text-white" placeholder="기록한 메모 검색...">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-slate-400 dark:text-slate-550 text-xs"></i>
+                </div>
+            </div>
+
+            <!-- 2. 실무 특화: D-Day 우선 대시보드 -->
+            <div>
+                <h3 class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                    <i class="fa-solid fa-clock"></i> 중요 D-Day 리스트
+                </h3>
+                <div id="ddayList" class="space-y-1.5 max-h-[120px] overflow-y-auto pr-1">
+                    <div class="text-center text-[11px] text-slate-400 dark:text-slate-550 py-4">지정된 D-Day 일정이 없습니다.</div>
+                </div>
+            </div>
+
+            <!-- 3. 이달의 일정 브리핑 보드 -->
+            <div class="flex-1 flex flex-col min-h-[180px]">
+                <div class="flex justify-between items-center mb-2">
+                    <h3 class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
+                        <i class="fa-solid fa-clipboard-list"></i> 이달의 일정 모아보기
+                    </h3>
+                    <span id="monthlyCount" class="text-xs font-bold bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 px-2 py-0.5 rounded-full">0건</span>
+                </div>
+                <!-- 스케줄 스크롤 리스트 -->
+                <div id="monthlyScheduleList" class="flex-1 overflow-y-auto space-y-2 max-h-[200px] lg:max-h-none pr-1">
+                    <div class="text-center text-xs text-slate-400 dark:text-slate-550 py-8">등록된 실무 일정이 없습니다.</div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- 3분할 및 단일 캘린더 공용 레이아웃 영역 -->
+        <main id="mainContainer" class="flex-1 flex flex-col lg:flex-row gap-4 overflow-hidden transition-all duration-300">
+            
+            <!-- [좌측] 이전 달 캘린더 (토글 노출) -->
+            <section id="prevMonthSection" class="hidden flex-1 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-sm p-4 flex flex-col transition-all duration-300 opacity-85 hover:opacity-100 lg:max-w-[32%]">
+                <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-100 dark:border-slate-800">
+                    <h2 class="font-bold text-slate-500 dark:text-slate-400 text-sm flex items-center gap-1">
+                        <i class="fa-regular fa-calendar text-slate-400 dark:text-slate-500"></i>
+                        이전 달
+                    </h2>
+                    <span id="prevMonthTitle" class="text-sm font-semibold text-slate-600 dark:text-slate-400">2026.06</span>
+                </div>
+                <div class="grid grid-cols-7 gap-1 text-center font-semibold text-xs text-slate-400 dark:text-slate-550 mb-2">
+                    <div class="text-rose-400">일</div>
+                    <div>월</div>
+                    <div>화</div>
+                    <div>수</div>
+                    <div>목</div>
+                    <div>금</div>
+                    <div class="text-sky-400">토</div>
+                </div>
+                <div id="prevMonthGrid" class="grid grid-cols-7 gap-1 flex-1 content-start">
+                    <!-- 동적 생성 -->
+                </div>
+            </section>
+
+            <!-- [중앙] 현재 달 캘린더 -->
+            <section id="mainMonthSection" class="flex-1 bg-white dark:bg-slate-900 rounded-2xl border-2 border-indigo-500/30 dark:border-indigo-500/50 shadow-md p-4 md:p-5 flex flex-col transition-all duration-300 max-w-4xl mx-auto w-full">
+                <div class="flex justify-between items-center mb-3 pb-2 border-b border-indigo-100 dark:border-slate-800">
+                    <h2 class="font-bold text-indigo-700 dark:text-indigo-400 text-base flex items-center gap-1.5">
+                        <i class="fa-solid fa-calendar-day text-indigo-600 dark:text-indigo-400 animate-pulse"></i>
+                        현재 달
+                    </h2>
+                    <span id="mainMonthTitle" class="text-base font-bold text-indigo-950 dark:text-white">2026.07</span>
+                </div>
+                <div class="grid grid-cols-7 gap-1 text-center font-bold text-xs md:text-sm text-slate-500 dark:text-slate-400 mb-2 py-1 bg-indigo-50/50 dark:bg-indigo-950/30 rounded-lg">
+                    <div class="text-rose-500">일</div>
+                    <div>월</div>
+                    <div>화</div>
+                    <div>수</div>
+                    <div>목</div>
+                    <div>금</div>
+                    <div class="text-sky-500">토</div>
+                </div>
+                <div id="mainMonthGrid" class="grid grid-cols-7 gap-1.5 flex-1 content-start min-h-[300px]">
+                    <!-- 동적 생성 -->
+                </div>
+            </section>
+
+            <!-- [우측] 다음 달 캘린더 (토글 노출) -->
+            <section id="nextMonthSection" class="hidden flex-1 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-sm p-4 flex flex-col transition-all duration-300 opacity-85 hover:opacity-100 lg:max-w-[32%]">
+                <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-100 dark:border-slate-800">
+                    <h2 class="font-bold text-slate-500 dark:text-slate-400 text-sm flex items-center gap-1">
+                        <i class="fa-regular fa-calendar text-slate-400 dark:text-slate-500"></i>
+                        다음 달
+                    </h2>
+                    <span id="nextMonthTitle" class="text-sm font-semibold text-slate-600 dark:text-slate-400">2026.08</span>
+                </div>
+                <div class="grid grid-cols-7 gap-1 text-center font-semibold text-xs text-slate-400 dark:text-slate-550 mb-2">
+                    <div class="text-rose-400">일</div>
+                    <div>월</div>
+                    <div>화</div>
+                    <div>수</div>
+                    <div>목</div>
+                    <div>금</div>
+                    <div class="text-sky-400">토</div>
+                </div>
+                <div id="nextMonthGrid" class="grid grid-cols-7 gap-1 flex-1 content-start">
+                    <!-- 동적 생성 -->
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- 하단 상태 바 / 범례 안내 -->
+    <footer class="bg-slate-100 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-2.5 px-4 text-xs text-slate-500 dark:text-slate-400 text-center no-print transition-colors">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
+            <div>© 2026 비즈니스 캘린더 | 실무 스케줄러 & 구글/삼성 연동 지원</div>
+            <div class="flex items-center gap-3 flex-wrap justify-center">
+                <div class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-blue-500 inline-block"></span> 업무</div>
+                <div class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-rose-500 inline-block"></span> 중요</div>
+                <div class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block"></span> 개인</div>
+                <div class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-amber-500 inline-block"></span> 일반/기타</div>
+                <div class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-red-600 inline-block"></span> 법정공휴일</div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- [모달 1] 일정, 카테고리, D-Day 및 도구 제어 팝업 -->
+    <div id="memoModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 z-50 hidden opacity-0 transition-opacity duration-200">
+        <div class="bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 rounded-2xl shadow-2xl max-w-md w-full overflow-hidden transform scale-95 transition-transform duration-200 border dark:border-slate-800">
+            <!-- 모달 헤더 -->
+            <div class="bg-indigo-600 dark:bg-indigo-800 text-white px-5 py-4 flex justify-between items-center">
+                <div>
+                    <h3 id="modalDateTitle" class="text-lg font-bold">2026년 07월 08일</h3>
+                    <p id="modalLunarSubtitle" class="text-xs text-indigo-100 dark:text-indigo-300 mt-0.5">음력 5월 24일</p>
+                </div>
+                <button id="btnCloseMemo" class="text-white/80 hover:text-white hover:bg-white/10 p-1.5 rounded-lg transition">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+            <!-- 모달 바디 -->
+            <div class="p-5 space-y-4 max-h-[80vh] overflow-y-auto">
+                <!-- 카테고리 분류 -->
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-400 uppercase tracking-wide mb-1.5">카테고리 설정</label>
+                    <div class="grid grid-cols-4 gap-2" id="categorySelector">
+                        <button type="button" data-color="blue" class="py-1.5 px-2 bg-blue-50 dark:bg-blue-950/50 text-blue-700 dark:text-blue-400 border border-blue-200 dark:border-blue-900 rounded-lg text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-blue-400 select-btn-color">업무</button>
+                        <button type="button" data-color="rose" class="py-1.5 px-2 bg-rose-50 dark:bg-rose-950/50 text-rose-700 dark:text-rose-400 border border-rose-200 dark:border-rose-900 rounded-lg text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-rose-400 select-btn-color">중요</button>
+                        <button type="button" data-color="emerald" class="py-1.5 px-2 bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-900 rounded-lg text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-emerald-400 select-btn-color">개인</button>
+                        <button type="button" data-color="amber" class="py-1.5 px-2 bg-amber-50 dark:bg-amber-950/50 text-amber-700 dark:text-amber-400 border border-amber-200 dark:border-amber-900 rounded-lg text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-amber-400 select-btn-color">일반</button>
+                    </div>
+                </div>
+
+                <!-- 메모 입력 -->
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-400 uppercase tracking-wide mb-1.5">상세 내용</label>
+                    <textarea id="memoInput" class="w-full h-24 px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none resize-none text-slate-800 dark:text-white text-sm" placeholder="내용을 기록하세요..."></textarea>
+                </div>
+
+                <!-- [신규 등록] 매년 반복 기념일 설정 공간 -->
+                <div class="bg-amber-50/50 dark:bg-amber-950/20 p-3 rounded-xl border border-amber-100 dark:border-amber-900/50 space-y-2">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-cake-candles text-amber-500 animate-pulse"></i>
+                            <div>
+                                <p class="text-xs font-bold">매년 반복 설정 (생일/기념일)</p>
+                                <p class="text-[10px] text-slate-400 dark:text-slate-500">지정한 일의 매년 양/음력을 자동 역산</p>
+                            </div>
+                        </div>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" id="repeatCheckbox" class="sr-only peer">
+                            <div class="w-11 h-6 bg-slate-200 dark:bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-amber-500"></div>
+                        </label>
+                    </div>
+                    
+                    <!-- 반복 옵션 (체크 시 활성화) -->
+                    <div id="repeatOptionsContainer" class="hidden flex items-center justify-end gap-4 text-xs font-medium pt-1.5 border-t border-amber-100/50 dark:border-amber-900/30">
+                        <label class="flex items-center gap-1.5 cursor-pointer dark:text-slate-300">
+                            <input type="radio" name="repeatType" value="solar" checked class="accent-amber-500">
+                            <span>매년 양력 반복</span>
+                        </label>
+                        <label class="flex items-center gap-1.5 cursor-pointer dark:text-slate-300">
+                            <input type="radio" name="repeatType" value="lunar" class="accent-amber-500">
+                            <span>매년 음력 반복</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- 캘린더 연동 및 D-Day 설정 공간 -->
+                <div class="grid grid-cols-1 gap-2">
+                    <!-- D-Day 토글 스위치 -->
+                    <div class="flex items-center justify-between bg-slate-50 dark:bg-slate-800/60 p-2.5 rounded-xl border border-slate-200/50 dark:border-slate-800">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-clock-rotate-left text-indigo-500"></i>
+                            <div>
+                                <p class="text-xs font-bold">중요 D-Day 설정</p>
+                                <p class="text-[10px] text-slate-400 dark:text-slate-550">마감일 목록에 고정 표기합니다.</p>
+                            </div>
+                        </div>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" id="ddayCheckbox" class="sr-only peer">
+                            <div class="w-11 h-6 bg-slate-200 dark:bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+                        </label>
+                    </div>
+
+                    <!-- 개별 일정 구글 캘린더 전송 기능 -->
+                    <div class="flex items-center justify-between bg-blue-50/50 dark:bg-blue-950/20 p-2.5 rounded-xl border border-blue-100 dark:border-blue-900/50">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-brands fa-google text-blue-500"></i>
+                            <div>
+                                <p class="text-xs font-bold">구글 캘린더 스마트 연동</p>
+                                <p class="text-[10px] text-slate-400 dark:text-slate-550">내 구글 달력에 바로 등록합니다.</p>
+                            </div>
+                        </div>
+                        <button id="btnAddToGoogleCalendar" class="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs rounded-lg transition flex items-center gap-1 shadow-sm">
+                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i> 추가
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 일정 복사 / 이동 도구 -->
+                <div class="border-t border-slate-100 dark:border-slate-800 pt-3">
+                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-400 uppercase tracking-wide mb-1.5">일정 복사 / 날짜 이동 도구</label>
+                    <div class="flex gap-2">
+                        <input type="date" id="toolsTargetDate" class="flex-1 px-3 py-1.5 bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl text-xs dark:text-white focus:outline-none">
+                        <button id="btnCopyMemo" class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-xs font-bold rounded-xl transition">복사</button>
+                        <button id="btnMoveMemo" class="px-3 py-1.5 bg-indigo-50 hover:bg-indigo-100 dark:bg-indigo-950/40 dark:hover:bg-indigo-900/60 text-indigo-600 dark:text-indigo-400 text-xs font-bold rounded-xl transition">이동</button>
+                    </div>
+                </div>
+                
+                <div class="flex gap-2 pt-2 border-t border-slate-100 dark:border-slate-800">
+                    <button id="btnDeleteMemo" class="flex-1 py-2.5 bg-rose-50 dark:bg-rose-950/50 hover:bg-rose-100 text-rose-600 dark:text-rose-400 font-semibold rounded-xl text-sm transition active:scale-95 flex items-center justify-center gap-1.5">
+                        <i class="fa-regular fa-trash-can"></i> 삭제
+                    </button>
+                    <button id="btnSaveMemo" class="flex-[2] py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl text-sm transition active:scale-95 shadow-md shadow-indigo-200 dark:shadow-none flex items-center justify-center gap-1.5">
+                        <i class="fa-regular fa-floppy-disk"></i> 저장하기
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- [모달 2] GitHub 백업 및 동기화 설정 팝업 -->
+    <div id="backupModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 z-50 hidden opacity-0 transition-opacity duration-200">
+        <div class="bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 rounded-2xl shadow-2xl max-w-lg w-full overflow-hidden transform scale-95 transition-transform duration-200 border dark:border-slate-800">
+            <!-- 모달 헤더 -->
+            <div class="bg-slate-900 dark:bg-slate-950 text-white px-5 py-4 flex justify-between items-center">
+                <div class="flex items-center gap-2">
+                    <i class="fa-brands fa-github text-xl"></i>
+                    <h3 class="text-lg font-bold">GitHub 백업 클라우드</h3>
+                </div>
+                <button id="btnCloseBackup" class="text-white/80 hover:text-white hover:bg-white/10 p-1.5 rounded-lg transition">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+            <!-- 모달 바디 -->
+            <div class="p-5 space-y-4 max-h-[80vh] overflow-y-auto">
+                <div class="bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-900 rounded-xl p-3 text-xs text-blue-800 dark:text-blue-300 leading-relaxed">
+                    <i class="fa-solid fa-circle-info mr-1"></i>
+                    GitHub Personal Access Token을 생성하여 저장소(Repo)에 메모 데이터를 안전하게 백업 및 복원할 수 있습니다.
+                </div>
+
+                <!-- 설정 폼 -->
+                <div class="space-y-3">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-400 uppercase tracking-wide mb-1">GitHub Access Token (PAT)</label>
+                        <input type="password" id="gitToken" class="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-indigo-500 text-sm outline-none" placeholder="ghp_xxxxxxxxxxxxxxxxxxxxxxxx">
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 dark:text-slate-400 uppercase tracking-wide mb-1">GitHub Username</label>
+                            <input type="text" id="gitOwner" class="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-indigo-500 text-sm outline-none" placeholder="아이디">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 dark:text-slate-400 uppercase tracking-wide mb-1">Repository Name</label>
+                            <input type="text" id="gitRepo" class="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-indigo-500 text-sm outline-none" placeholder="예: my-calendar-data">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 알림 메시지 영역 -->
+                <div id="backupStatusMsg" class="hidden p-3 rounded-xl text-xs font-semibold"></div>
+
+                <!-- 액션 버튼들 -->
+                <div class="pt-3 border-t border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row gap-2">
+                    <button id="btnLoadFromGit" class="flex-1 py-2.5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold rounded-xl text-xs sm:text-sm transition flex items-center justify-center gap-1.5">
+                        <i class="fa-solid fa-cloud-arrow-down"></i> 동기화 가져오기
+                    </button>
+                    <button id="btnSaveToGit" class="flex-1 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-xs sm:text-sm transition flex items-center justify-center gap-1.5 shadow-md shadow-emerald-100 dark:shadow-none">
+                        <i class="fa-solid fa-cloud-arrow-up"></i> 현재 상태 백업하기
+                    </button>
+                </div>
+
+                <div class="flex justify-end gap-2 pt-2">
+                    <button id="btnSaveGitConfig" class="px-4 py-2 bg-indigo-50 dark:bg-indigo-950 hover:bg-indigo-100 dark:hover:bg-indigo-900/50 text-indigo-700 dark:text-indigo-400 font-bold text-xs rounded-lg transition">
+                        설정값 로컬 브라우저에 저장
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- UI 토스트 알림창 -->
+    <div id="toast" class="fixed bottom-5 left-1/2 -translate-x-1/2 bg-slate-900 text-white text-xs md:text-sm px-4 py-2.5 rounded-full shadow-lg z-50 flex items-center gap-2 pointer-events-none opacity-0 transition-opacity duration-300">
+        <i class="fa-solid fa-circle-check text-emerald-400"></i>
+        <span id="toastText">성공적으로 처리되었습니다.</span>
+    </div>
+
+    <script>
+        /**
+         * -------------------------------------------------------------
+         * 1. 전역 상태 및 모듈 관리
+         * -------------------------------------------------------------
+         */
+        const state = {
+            currentDate: new Date(), 
+            selectedDate: null,     
+            selectedColor: 'blue',  
+            isExpanded: false,       
+            memos: {},               // 구조: { 'YYYY-MM-DD': { text: '', color: '', isDDay: false, repeat: null } }
+                                     // repeat: { type: 'solar' | 'lunar', originMonth: Number, originDay: Number }
+            gitConfig: {
+                token: '',
+                owner: '',
+                repo: '',
+                path: 'calendar-backup.json'
+            }
+        };
+
+        const MEMO_STORAGE_KEY = 'SMART_CALENDAR_MEMOS_v2';
+        const GIT_CONFIG_STORAGE_KEY = 'SMART_CALENDAR_GIT_CONFIG_v1';
+
+        const COLOR_MAP = {
+            blue: { bg: 'bg-blue-100 dark:bg-blue-950/40', text: 'text-blue-800 dark:text-blue-300', border: 'border-blue-200 dark:border-blue-900', textLight: 'text-blue-600 dark:text-blue-400', hover: 'hover:bg-blue-50 dark:hover:bg-blue-900/30', badge: 'bg-blue-500' },
+            rose: { bg: 'bg-rose-100 dark:bg-rose-950/40', text: 'text-rose-800 dark:text-rose-300', border: 'border-rose-200 dark:border-rose-900', textLight: 'text-rose-600 dark:text-rose-400', hover: 'hover:bg-rose-50 dark:hover:bg-rose-900/30', badge: 'bg-rose-500' },
+            emerald: { bg: 'bg-emerald-100 dark:bg-emerald-950/40', text: 'text-emerald-800 dark:text-emerald-300', border: 'border-emerald-200 dark:border-emerald-900', textLight: 'text-emerald-600 dark:text-emerald-400', hover: 'hover:bg-emerald-50 dark:hover:bg-emerald-900/30', badge: 'bg-emerald-500' },
+            amber: { bg: 'bg-amber-100 dark:bg-amber-950/40', text: 'text-amber-800 dark:text-amber-300', border: 'border-amber-200 dark:border-amber-900', textLight: 'text-amber-600 dark:text-amber-400', hover: 'hover:bg-amber-50 dark:hover:bg-amber-900/30', badge: 'bg-amber-400' }
+        };
+
+        /**
+         * -------------------------------------------------------------
+         * 2. 고정밀 음력 간이 계산 엔진 및 공휴일 분석기
+         * -------------------------------------------------------------
+         */
+        function getLunarDate(year, month, day) {
+            const baseDate = new Date(1900, 0, 31);
+            const targetDate = new Date(year, month - 1, day);
+            let offset = Math.floor((targetDate - baseDate) / (24 * 60 * 60 * 1000));
+
+            const lunarInfo = [
+                0x04bd8, 0x04ae0, 0x0a570, 0x054d5, 0x0d260, 0x0d950, 0x16554, 0x056a0, 0x09ad0, 0x055d2,
+                0x04ae0, 0x0a5b6, 0x0a4d0, 0x0d250, 0x1d255, 0x0b540, 0x0d6a0, 0x0ada2, 0x095b0, 0x14977,
+                0x04970, 0x0a4b0, 0x0b4b5, 0x06a50, 0x06d40, 0x1ab54, 0x02b60, 0x09570, 0x052f2, 0x04970,
+                0x06566, 0x0d4a0, 0x0ea50, 0x06e95, 0x05ad0, 0x02b60, 0x186e3, 0x092e0, 0x1c8d7, 0x0c950,
+                0x0d4a0, 0x1d8a6, 0x0b550, 0x056a0, 0x1a5b4, 0x025d0, 0x092d0, 0x0d2b2, 0x0a950, 0x0b557,
+                0x06ca0, 0x0b550, 0x15355, 0x04da0, 0x0a5d0, 0x14573, 0x052d0, 0x0a9a8, 0x0e950, 0x06aa0,
+                0x0aea6, 0x0ab50, 0x04b60, 0x0aae4, 0x0a570, 0x05260, 0x0f263, 0x0d950, 0x05b57, 0x056a0,
+                0x096d0, 0x04dd5, 0x04ad0, 0x0a4d0, 0x0d4d4, 0x0d250, 0x0d558, 0x0b540, 0x0b6a0, 0x195a6,
+                0x095b0, 0x049b0, 0x0a974, 0x0a4b0, 0x0b27a, 0x06a50, 0x06d40, 0x0af46, 0x0ab60, 0x09570,
+                0x04af5, 0x04970, 0x064b0, 0x074a3, 0x0ea50, 0x06b58, 0x055c0, 0x0ab60, 0x096d5, 0x092e0,
+                0x0c960, 0x0d954, 0x0d4a0, 0x0da50, 0x07552, 0x056a0, 0x0abb7, 0x025d0, 0x092d0, 0x0cab5,
+                0x0a950, 0x0b4a0, 0x0baa4, 0x0ad50, 0x055d9, 0x04ba0, 0x0a5b0, 0x15176, 0x052b0, 0x0a930,
+                0x07954, 0x06aa0, 0x0ad50, 0x05b52, 0x04b60, 0x0a6e6, 0x0a4e0, 0x0d260, 0x0ea65, 0x0d530,
+                0x05aa0, 0x076a3, 0x096d0, 0x04afb, 0x04ad0, 0x0a4d0, 0x1d0b6, 0x0d250, 0x0d520, 0x0dd45,
+                0x0b5a0, 0x056d0, 0x055b2, 0x049b0, 0x0a577, 0x0a4b0, 0x0aa50, 0x1b255, 0x06d20, 0x0ada0
+            ];
+
+            let i, leap = 0, temp = 0;
+            let isLeap = false;
+
+            for (i = 1900; i < 2040 && offset > 0; i++) {
+                temp = getLunarYearDays(i);
+                offset -= temp;
+            }
+
+            if (offset < 0) {
+                offset += temp;
+                i--;
+            }
+
+            const lunarYear = i;
+            leap = getLunarLeapMonth(lunarYear);
+
+            for (i = 1; i <= 12 && offset > 0; i++) {
+                if (leap > 0 && i == (leap + 1) && !isLeap) {
+                    --i;
+                    isLeap = true;
+                    temp = getLunarLeapDays(lunarYear);
+                } else {
+                    temp = getLunarMonthDays(lunarYear, i);
+                    isLeap = false;
+                }
+
+                offset -= temp;
+                if (isLeap && i == (leap + 1)) isLeap = false;
+            }
+
+            if (offset < 0) {
+                offset += temp;
+                i--;
+            }
+
+            if (offset === 0 && leap > 0 && i === leap + 1) {
+                if (isLeap) {
+                    isLeap = false;
+                } else {
+                    isLeap = true;
+                    --i;
+                }
+            }
+
+            const lunarMonth = i;
+            const lunarDay = offset + 1;
+
+            return {
+                year: lunarYear,
+                month: lunarMonth,
+                day: lunarDay,
+                isLeap: isLeap,
+                formatted: `${lunarMonth}.${lunarDay}`
+            };
+
+            function getLunarYearDays(y) {
+                let sum = 348;
+                for (let j = 0x8000; j > 0x8; j >>= 1) {
+                    sum += (lunarInfo[y - 1900] & j) ? 1 : 0;
+                }
+                return sum + getLunarLeapDays(y);
+            }
+
+            function getLunarLeapMonth(y) {
+                return lunarInfo[y - 1900] & 0xf;
+            }
+
+            function getLunarLeapDays(y) {
+                if (getLunarLeapMonth(y)) {
+                    return (lunarInfo[y - 1900] & 0x10000) ? 30 : 29;
+                }
+                return 0;
+            }
+
+            function getLunarMonthDays(y, m) {
+                return (lunarInfo[y - 1900] & (0x10000 >> m)) ? 30 : 29;
+            }
+        }
+
+        /**
+         * 양력 날짜(Year, Month, Day)에 대응되는 음력 기준 역산 함수
+         * 특정 연도(Year)의 음력(Month, Day)이 어떤 양력 날짜(Date)에 대응하는지 계산합니다.
+         */
+        function getSolarFromLunar(targetYear, targetLunarMonth, targetLunarDay) {
+            // 기준 시작일: 1900년 1월 31일 (음력 1900년 1월 1일)
+            const baseDate = new Date(1900, 0, 31);
+            let offset = 0;
+
+            const lunarInfo = [
+                0x04bd8, 0x04ae0, 0x0a570, 0x054d5, 0x0d260, 0x0d950, 0x16554, 0x056a0, 0x09ad0, 0x055d2,
+                0x04ae0, 0x0a5b6, 0x0a4d0, 0x0d250, 0x1d255, 0x0b540, 0x0d6a0, 0x0ada2, 0x095b0, 0x14977,
+                0x04970, 0x0a4b0, 0x0b4b5, 0x06a50, 0x06d40, 0x1ab54, 0x02b60, 0x09570, 0x052f2, 0x04970,
+                0x06566, 0x0d4a0, 0x0ea50, 0x06e95, 0x05ad0, 0x02b60, 0x186e3, 0x092e0, 0x1c8d7, 0x0c950,
+                0x0d4a0, 0x1d8a6, 0x0b550, 0x056a0, 0x1a5b4, 0x025d0, 0x092d0, 0x0d2b2, 0x0a950, 0x0b557,
+                0x06ca0, 0x0b550, 0x15355, 0x04da0, 0x0a5d0, 0x14573, 0x052d0, 0x0a9a8, 0x0e950, 0x06aa0,
+                0x0aea6, 0x0ab50, 0x04b60, 0x0aae4, 0x0a570, 0x05260, 0x0f263, 0x0d950, 0x05b57, 0x056a0,
+                0x096d0, 0x04dd5, 0x04ad0, 0x0a4d0, 0x0d4d4, 0x0d250, 0x0d558, 0x0b540, 0x0b6a0, 0x195a6,
+                0x095b0, 0x049b0, 0x0a974, 0x0a4b0, 0x0b27a, 0x06a50, 0x06d40, 0x0af46, 0x0ab60, 0x09570,
+                0x04af5, 0x04970, 0x064b0, 0x074a3, 0x0ea50, 0x06b58, 0x055c0, 0x0ab60, 0x096d5, 0x092e0,
+                0x0c960, 0x0d954, 0x0d4a0, 0x0da50, 0x07552, 0x056a0, 0x0abb7, 0x025d0, 0x092d0, 0x0cab5,
+                0x0a950, 0x0b4a0, 0x0baa4, 0x0ad50, 0x055d9, 0x04ba0, 0x0a5b0, 0x15176, 0x052b0, 0x0a930,
+                0x07954, 0x06aa0, 0x0ad50, 0x05b52, 0x04b60, 0x0a6e6, 0x0a4e0, 0x0d260, 0x0ea65, 0x0d530,
+                0x05aa0, 0x076a3, 0x096d0, 0x04afb, 0x04ad0, 0x0a4d0, 0x1d0b6, 0x0d250, 0x0d520, 0x0dd45,
+                0x0b5a0, 0x056d0, 0x055b2, 0x049b0, 0x0a577, 0x0a4b0, 0x0aa50, 0x1b255, 0x06d20, 0x0ada0
+            ];
+
+            // 1. targetYear 이전까지의 총 음력 일수 더하기
+            for (let y = 1900; y < targetYear; y++) {
+                let sum = 348;
+                for (let j = 0x8000; j > 0x8; j >>= 1) {
+                    sum += (lunarInfo[y - 1900] & j) ? 1 : 0;
+                }
+                const leapMonth = lunarInfo[y - 1900] & 0xf;
+                if (leapMonth) {
+                    sum += (lunarInfo[y - 1900] & 0x10000) ? 30 : 29;
+                }
+                offset += sum;
+            }
+
+            // 2. targetYear 내의 targetLunarMonth 이전까지의 일수 더하기
+            const leapMonth = lunarInfo[targetYear - 1900] & 0xf;
+            let isLeapInjected = false;
+
+            for (let m = 1; m < targetLunarMonth; m++) {
+                const monthDays = (lunarInfo[targetYear - 1900] & (0x10000 >> m)) ? 30 : 29;
+                offset += monthDays;
+
+                if (leapMonth > 0 && m === leapMonth) {
+                    const leapDays = (lunarInfo[targetYear - 1900] & 0x10000) ? 30 : 29;
+                    offset += leapDays;
+                }
+            }
+
+            // 3. targetLunarDay 더하기
+            offset += (targetLunarDay - 1);
+
+            // 4. 기준 일에 총 오프셋을 더해 양력 반환
+            const finalSolarDate = new Date(baseDate.getTime() + (offset * 24 * 60 * 60 * 1000));
+            return finalSolarDate;
+        }
+
+        function checkHoliday(year, month, day, lunarObj) {
+            const solarMD = `${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+            const solarHolidays = {
+                "01-01": "신정",
+                "03-01": "삼일절",
+                "05-05": "어린이날",
+                "06-06": "현충일",
+                "08-15": "광복절",
+                "10-03": "개천절",
+                "10-09": "한글날",
+                "12-25": "성탄절"
+            };
+
+            if (solarHolidays[solarMD]) {
+                return solarHolidays[solarMD];
+            }
+
+            if (!lunarObj.isLeap) {
+                const lunarMD = `${lunarObj.month}-${lunarObj.day}`;
+                
+                if (lunarMD === "1-1") return "설날";
+                if (lunarMD === "1-2") return "설연휴";
+                
+                const nextLunar = getLunarDate(year, month, day + 1);
+                if (nextLunar.month === 1 && nextLunar.day === 1 && !nextLunar.isLeap) {
+                    return "설연휴";
+                }
+
+                if (lunarMD === "4-8") return "부처님오신날";
+                if (lunarMD === "8-14") return "추석연휴";
+                if (lunarMD === "8-15") return "추석";
+                if (lunarMD === "8-16") return "추석연휴";
+            }
+
+            return null;
+        }
+
+        /**
+         * -------------------------------------------------------------
+         * 2-1. [신규 핵심] 양력/음력 반복 기념일 일정 검증 엔진
+         * -------------------------------------------------------------
+         * 특정 타겟 날짜(dateStr)가 저장된 반복 기념일에 매칭되는지 확인합니다.
+         */
+        function getMatchingRepeatedMemo(targetDateStr) {
+            const [tYear, tMonth, tDay] = targetDateStr.split('-').map(Number);
+            const targetSolarDate = new Date(tYear, tMonth - 1, tDay);
+            const targetLunar = getLunarDate(tYear, tMonth, tDay);
+
+            let matchedMemo = null;
+
+            Object.keys(state.memos).forEach(originDateStr => {
+                const memoObj = state.memos[originDateStr];
+                if (!memoObj || !memoObj.repeat) return;
+
+                const rType = memoObj.repeat.type;
+                const oM = memoObj.repeat.originMonth;
+                const oD = memoObj.repeat.originDay;
+
+                if (rType === 'solar') {
+                    // 1) 양력 반복: 월과 일이 매치되는가?
+                    if (tMonth === oM && tDay === oD) {
+                        matchedMemo = {
+                            ...memoObj,
+                            isRepeatedOccurrence: true,
+                            originalDate: originDateStr
+                        };
+                    }
+                } else if (rType === 'lunar') {
+                    // 2) 음력 반복: 음력 월과 일이 매치되는가?
+                    if (!targetLunar.isLeap && targetLunar.month === oM && targetLunar.day === oD) {
+                        matchedMemo = {
+                            ...memoObj,
+                            isRepeatedOccurrence: true,
+                            originalDate: originDateStr
+                        };
+                    }
+                }
+            });
+
+            return matchedMemo;
+        }
+
+        /**
+         * -------------------------------------------------------------
+         * 3. 캘린더 드로잉 엔진 및 실무 보드 제어
+         * -------------------------------------------------------------
+         */
+        function renderThreeMonths() {
+            const current = new Date(state.currentDate);
+
+            const prev = new Date(current.getFullYear(), current.getMonth() - 1, 1);
+            const next = new Date(current.getFullYear(), current.getMonth() + 1, 1);
+
+            document.getElementById('currentPeriodLabel').innerText = `${current.getFullYear()}년 ${String(current.getMonth() + 1).padStart(2, '0')}월`;
+            
+            document.getElementById('prevMonthTitle').innerText = `${prev.getFullYear()}.${String(prev.getMonth() + 1).padStart(2, '0')}`;
+            document.getElementById('mainMonthTitle').innerText = `${current.getFullYear()}.${String(current.getMonth() + 1).padStart(2, '0')}`;
+            document.getElementById('nextMonthTitle').innerText = `${next.getFullYear()}.${String(next.getMonth() + 1).padStart(2, '0')}`;
+
+            renderSingleGrid('prevMonthGrid', prev, false);
+            renderSingleGrid('mainMonthGrid', current, true);
+            renderSingleGrid('nextMonthGrid', next, false);
+
+            updateMonthlyScheduleBoard();
+            updateDDayBoard();
+        }
+
+        function renderSingleGrid(gridId, dateObj, isMain = false) {
+            const gridContainer = document.getElementById(gridId);
+            gridContainer.innerHTML = '';
+
+            const year = dateObj.getFullYear();
+            const month = dateObj.getMonth();
+
+            const firstDayIndex = new Date(year, month, 1).getDay();
+            const lastDate = new Date(year, month + 1, 0).getDate();
+            const prevLastDate = new Date(year, month, 0).getDate();
+
+            const totalCells = 42; 
+            const today = new Date();
+
+            for (let i = 0; i < totalCells; i++) {
+                const cell = document.createElement('button');
+                cell.className = "flex flex-col justify-between p-1.5 md:p-2 border rounded-xl transition duration-150 relative text-left outline-none min-h-[55px] md:min-h-[75px]";
+                
+                let targetYear, targetMonth, targetDay;
+                let isCurrentMonthDate = true;
+
+                if (i < firstDayIndex) {
+                    targetYear = month === 0 ? year - 1 : year;
+                    targetMonth = month === 0 ? 11 : month - 1;
+                    targetDay = prevLastDate - (firstDayIndex - 1 - i);
+                    isCurrentMonthDate = false;
+                } else if (i >= firstDayIndex + lastDate) {
+                    targetYear = month === 11 ? year + 1 : year;
+                    targetMonth = month === 11 ? 0 : month + 1;
+                    targetDay = i - (firstDayIndex + lastDate) + 1;
+                    isCurrentMonthDate = false;
+                } else {
+                    targetYear = year;
+                    targetMonth = month;
+                    targetDay = i - firstDayIndex + 1;
+                }
+
+                const dateStr = `${targetYear}-${String(targetMonth + 1).padStart(2, '0')}-${String(targetDay).padStart(2, '0')}`;
+                const lunar = getLunarDate(targetYear, targetMonth + 1, targetDay);
+                const holidayName = checkHoliday(targetYear, targetMonth + 1, targetDay, lunar);
+
+                const dayOfWeek = i % 7;
+                let textColorClass = "text-slate-700 dark:text-slate-300";
+                if (dayOfWeek === 0) textColorClass = "text-rose-500"; 
+                if (dayOfWeek === 6) textColorClass = "text-sky-500";  
+                if (holidayName) textColorClass = "text-rose-500 font-extrabold"; 
+
+                if (!isCurrentMonthDate) {
+                    textColorClass = "text-slate-300 dark:text-slate-600"; 
+                }
+
+                if (isMain && isCurrentMonthDate) {
+                    cell.className += " bg-white dark:bg-slate-800 border-slate-250/70 dark:border-slate-700/80 hover:border-indigo-400 dark:hover:border-indigo-500 hover:bg-indigo-50/10 active:scale-95";
+                } else {
+                    cell.className += " bg-slate-50/50 dark:bg-slate-900/40 border-transparent hover:bg-slate-100/50 dark:hover:bg-slate-800/40 text-slate-400 dark:text-slate-600 cursor-pointer text-xs";
+                }
+
+                const isToday = today.getFullYear() === targetYear && today.getMonth() === targetMonth && today.getDate() === targetDay;
+                if (isToday) {
+                    cell.className += " ring-2 ring-indigo-500 ring-offset-1 dark:ring-offset-slate-950 bg-indigo-50/40 dark:bg-indigo-950/20";
+                }
+
+                // 1) 고정된 기본 메모 검사
+                let memoObj = state.memos[dateStr];
+                let isRepeatedItem = false;
+
+                // 2) 고정 메모가 없으면 양력/음력 반복 연도 주기 기념일 검사 진행
+                if (!memoObj) {
+                    const repeatedMatch = getMatchingRepeatedMemo(dateStr);
+                    if (repeatedMatch) {
+                        memoObj = repeatedMatch;
+                        isRepeatedItem = true;
+                    }
+                }
+
+                let memoIndicatorHTML = '';
+                let cellMemoPreviewHTML = '';
+
+                if (memoObj) {
+                    const mText = typeof memoObj === 'string' ? memoObj : memoObj.text;
+                    const mColor = typeof memoObj === 'string' ? 'amber' : (memoObj.color || 'amber');
+                    const colorScheme = COLOR_MAP[mColor] || COLOR_MAP.amber;
+
+                    memoIndicatorHTML = `<span class="w-2 h-2 rounded-full ${colorScheme.badge} animate-pulse absolute top-1.5 right-1.5" title="일정 있음"></span>`;
+                    
+                    if (isMain) {
+                        const iconPrefix = memoObj.repeat ? '🔄 ' : (memoObj.isDDay ? '⚡ ' : '');
+                        cellMemoPreviewHTML = `
+                        <span class="text-[9px] ${colorScheme.text} ${colorScheme.bg} px-1.5 py-0.5 rounded mt-1 truncate max-w-full font-semibold hidden sm:block border ${colorScheme.border}">
+                            ${iconPrefix}${mText}
+                        </span>`;
+                    }
+                }
+
+                cell.innerHTML = `
+                    <div class="flex justify-between items-start w-full">
+                        <div class="flex flex-col">
+                            <span class="font-bold text-xs md:text-sm ${textColorClass}">${targetDay}</span>
+                            ${holidayName ? `<span class="text-[8px] md:text-[9px] text-rose-500 font-bold leading-tight truncate max-w-[50px]">${holidayName}</span>` : ''}
+                        </div>
+                        ${memoIndicatorHTML}
+                    </div>
+                    <div class="flex flex-col w-full mt-0.5">
+                        <span class="text-[9px] md:text-[10px] text-slate-400 dark:text-slate-500 font-medium block leading-none">음 ${lunar.formatted}</span>
+                        ${cellMemoPreviewHTML}
+                    </div>
+                `;
+
+                cell.addEventListener('click', () => {
+                    openMemoModal(targetYear, targetMonth, targetDay, lunar);
+                });
+
+                gridContainer.appendChild(cell);
+            }
+        }
+
+        /**
+         * -------------------------------------------------------------
+         * 3-1. 실무전용: 3분할 뷰 / 단일 월 뷰 가변 레이아웃 엔진
+         * -------------------------------------------------------------
+         */
+        function applyLayoutExpansion(isExpanded) {
+            state.isExpanded = isExpanded;
+            localStorage.setItem('CALENDAR_EXPANDED', isExpanded ? 'true' : 'false');
+
+            const prevSection = document.getElementById('prevMonthSection');
+            const nextSection = document.getElementById('nextMonthSection');
+            const mainSection = document.getElementById('mainMonthSection');
+            const mainContainer = document.getElementById('mainContainer');
+            const expandText = document.getElementById('expandText');
+            const expandIcon = document.getElementById('expandIcon');
+
+            if (isExpanded) {
+                prevSection.classList.remove('hidden');
+                nextSection.classList.remove('hidden');
+                mainSection.className = "flex-[1.5] bg-white dark:bg-slate-900 rounded-2xl border-2 border-indigo-500/30 dark:border-indigo-500/50 shadow-md p-4 md:p-5 flex flex-col lg:min-w-[36%] w-full";
+                mainContainer.className = "flex-1 flex flex-col lg:flex-row gap-4 overflow-hidden transition-all duration-300";
+                expandText.innerText = "단일 보기";
+                expandIcon.className = "fa-solid fa-compress";
+            } else {
+                prevSection.classList.add('hidden');
+                nextSection.classList.add('hidden');
+                mainSection.className = "flex-1 bg-white dark:bg-slate-900 rounded-2xl border-2 border-indigo-500/30 dark:border-indigo-500/50 shadow-md p-4 md:p-5 flex flex-col max-w-4xl mx-auto w-full transition-all duration-300";
+                mainContainer.className = "flex-1 flex flex-col gap-4 overflow-hidden transition-all duration-300";
+                expandText.innerText = "3분할 확장";
+                expandIcon.className = "fa-solid fa-expand";
+            }
+        }
+
+        document.getElementById('btnToggleExpand').addEventListener('click', () => {
+            applyLayoutExpansion(!state.isExpanded);
+        });
+
+        /**
+         * -------------------------------------------------------------
+         * 4. 실무전용: 스케줄 브리핑 및 검색 기능 (기념일 통합 지원)
+         * -------------------------------------------------------------
+         */
+        function updateMonthlyScheduleBoard(searchKeyword = '') {
+            const listContainer = document.getElementById('monthlyScheduleList');
+            listContainer.innerHTML = '';
+
+            const current = state.currentDate;
+            const currentYear = current.getFullYear();
+            const currentMonth = current.getMonth() + 1;
+            const currentYearMonth = `${currentYear}-${String(currentMonth).padStart(2, '0')}`;
+            
+            // 이달에 매칭되는 기념일 및 원본 고정 일정을 일목요연하게 단일 리스트로 가공
+            const visibleSchedules = [];
+
+            // 1) 고정된 단일 일정 수집
+            Object.keys(state.memos).forEach(dateStr => {
+                const memoObj = state.memos[dateStr];
+                if (!memoObj) return;
+
+                const mText = typeof memoObj === 'string' ? memoObj : memoObj.text;
+                if (!mText || mText.trim() === '') return;
+
+                // 검색어가 있을 경우 날짜/문자 매칭 필터
+                if (searchKeyword) {
+                    if (mText.toLowerCase().includes(searchKeyword.toLowerCase()) || dateStr.includes(searchKeyword)) {
+                        visibleSchedules.push({ dateStr, memoObj });
+                    }
+                } else {
+                    // 검색어가 없을 때는 이번 달 일정만 표시
+                    if (dateStr.startsWith(currentYearMonth)) {
+                        visibleSchedules.push({ dateStr, memoObj });
+                    }
+                }
+            });
+
+            // 2) 이번 달의 각 일자별 루프를 돌며 양/음력 매칭되는 반복 일정 수집
+            const lastDate = new Date(currentYear, currentMonth, 0).getDate();
+            for (let day = 1; day <= lastDate; day++) {
+                const dateStr = `${currentYear}-${String(currentMonth).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                
+                // 이미 고정 일정이 등록되어 있는 일자는 중복 표기 방지 처리
+                const hasSolidMemo = state.memos[dateStr];
+                if (hasSolidMemo) continue;
+
+                const repeatedMatch = getMatchingRepeatedMemo(dateStr);
+                if (repeatedMatch) {
+                    if (searchKeyword) {
+                        if (repeatedMatch.text.toLowerCase().includes(searchKeyword.toLowerCase()) || dateStr.includes(searchKeyword)) {
+                            visibleSchedules.push({ dateStr, memoObj: repeatedMatch });
+                        }
+                    } else {
+                        visibleSchedules.push({ dateStr, memoObj: repeatedMatch });
+                    }
+                }
+            }
+
+            // 날짜 순 정렬
+            visibleSchedules.sort((a, b) => a.dateStr.localeCompare(b.dateStr));
+
+            visibleSchedules.forEach(item => {
+                const dateStr = item.dateStr;
+                const memoObj = item.memoObj;
+                const mText = memoObj.text;
+                const mColor = memoObj.color || 'amber';
+                const colorScheme = COLOR_MAP[mColor] || COLOR_MAP.amber;
+
+                const card = document.createElement('div');
+                card.className = `p-2.5 border ${colorScheme.border} ${colorScheme.bg} rounded-xl text-left cursor-pointer transition transform hover:scale-[1.01] hover:shadow-sm ${colorScheme.hover} flex flex-col gap-1`;
+                card.innerHTML = `
+                    <div class="flex justify-between items-center">
+                        <span class="text-[11px] font-bold ${colorScheme.textLight} flex items-center gap-1">
+                            <i class="fa-regular fa-calendar-check"></i> ${dateStr}
+                        </span>
+                        <div class="flex items-center gap-1">
+                            ${memoObj.repeat ? `<span class="text-[9px] px-1.5 py-0.5 bg-amber-500 text-white rounded font-bold flex items-center gap-0.5"><i class="fa-solid fa-cake-candles text-[8px]"></i> 매년 ${memoObj.repeat.type === 'solar' ? '양력' : '음력'}</span>` : ''}
+                            ${memoObj.isDDay ? '<span class="text-[9px] px-1.5 py-0.5 bg-rose-500 text-white rounded font-bold">D-Day</span>' : ''}
+                            <span class="text-[9px] font-bold px-1.5 py-0.5 bg-white/80 dark:bg-slate-800 border ${colorScheme.border} rounded text-slate-800 dark:text-slate-200">
+                                ${mColor === 'blue' ? '업무' : mColor === 'rose' ? '중요' : mColor === 'emerald' ? '개인' : '일반'}
+                            </span>
+                        </div>
+                    </div>
+                    <p class="text-xs text-slate-800 dark:text-slate-100 font-medium whitespace-pre-wrap truncate max-w-full">${mText}</p>
+                `;
+
+                card.addEventListener('click', () => {
+                    const [y, m, d] = dateStr.split('-').map(Number);
+                    state.currentDate = new Date(y, m - 1, 1);
+                    renderThreeMonths();
+                    const lunar = getLunarDate(y, m, d);
+                    openMemoModal(y, m - 1, d, lunar);
+                });
+
+                listContainer.appendChild(card);
+            });
+
+            document.getElementById('monthlyCount').innerText = `${visibleSchedules.length}건`;
+
+            if (visibleSchedules.length === 0) {
+                listContainer.innerHTML = `
+                    <div class="text-center text-xs text-slate-400 dark:text-slate-500 py-10">
+                        <i class="fa-regular fa-folder-open text-lg block mb-1"></i>
+                        ${searchKeyword ? '검색어와 일치하는 일정이 없습니다.' : '이달 예정된 주요 일정이 없습니다.'}
+                    </div>`;
+            }
+        }
+
+        /**
+         * -------------------------------------------------------------
+         * 5. 실무전용: 중요 D-Day 리스트 생성 및 자동 연산 (반복 일정 연동)
+         * -------------------------------------------------------------
+         */
+        function updateDDayBoard() {
+            const ddayContainer = document.getElementById('ddayList');
+            ddayContainer.innerHTML = '';
+
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            const ddaySchedules = [];
+
+            // 1) 고정일 중 D-Day 지정 수집
+            Object.keys(state.memos).forEach(dateStr => {
+                const memoObj = state.memos[dateStr];
+                if (memoObj && memoObj.isDDay) {
+                    ddaySchedules.push({ dateStr, memoObj });
+                }
+            });
+
+            // 2) 매년 양/음력 반복 지정된 일정 중, 현재 연도의 양력 환산 기점이 오늘 이후에 있는 D-Day 카드 임베디드 수집
+            const currentYear = today.getFullYear();
+            Object.keys(state.memos).forEach(originDateStr => {
+                const memoObj = state.memos[originDateStr];
+                if (memoObj && memoObj.repeat && memoObj.isDDay) {
+                    const rType = memoObj.repeat.type;
+                    const oM = memoObj.repeat.originMonth;
+                    const oD = memoObj.repeat.originDay;
+
+                    let solarInstanceDate = null;
+                    if (rType === 'solar') {
+                        solarInstanceDate = new Date(currentYear, oM - 1, oD);
+                    } else if (rType === 'lunar') {
+                        solarInstanceDate = getSolarFromLunar(currentYear, oM, oD);
+                    }
+
+                    if (solarInstanceDate) {
+                        const targetDateStr = `${solarInstanceDate.getFullYear()}-${String(solarInstanceDate.getMonth() + 1).padStart(2, '0')}-${String(solarInstanceDate.getDate()).padStart(2, '0')}`;
+                        // 고정 스케줄과 중복 수집 방지
+                        if (!ddaySchedules.some(item => item.dateStr === targetDateStr)) {
+                            ddaySchedules.push({ dateStr: targetDateStr, memoObj });
+                        }
+                    }
+                }
+            });
+
+            // 날짜 순 정렬
+            ddaySchedules.sort((a, b) => a.dateStr.localeCompare(b.dateStr));
+
+            let ddayCount = 0;
+            ddaySchedules.forEach(item => {
+                const dateStr = item.dateStr;
+                const memoObj = item.memoObj;
+                ddayCount++;
+
+                const targetDate = new Date(dateStr);
+                targetDate.setHours(0, 0, 0, 0);
+
+                const timeDiff = targetDate.getTime() - today.getTime();
+                const dayDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
+                let badgeClass = "bg-rose-500 text-white";
+                let ddayLabel = "";
+
+                if (dayDiff === 0) {
+                    ddayLabel = "D-Day";
+                    badgeClass = "bg-rose-600 text-white animate-bounce";
+                } else if (dayDiff > 0) {
+                    ddayLabel = `D-${dayDiff}`;
+                    if (dayDiff <= 3) badgeClass = "bg-orange-500 text-white";
+                    else badgeClass = "bg-indigo-600 text-white";
+                } else {
+                    ddayLabel = `D+${Math.abs(dayDiff)}`;
+                    badgeClass = "bg-slate-400 text-white";
+                }
+
+                const card = document.createElement('button');
+                card.className = "w-full flex items-center justify-between p-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-left hover:bg-slate-100 dark:hover:bg-slate-700 transition";
+                card.innerHTML = `
+                    <div class="flex-1 min-w-0 pr-2">
+                        <p class="text-[10px] text-slate-400 dark:text-slate-500 font-bold">${dateStr} ${memoObj.repeat ? '🔄' : ''}</p>
+                        <p class="text-xs font-bold text-slate-700 dark:text-slate-200 truncate">${memoObj.text}</p>
+                    </div>
+                    <span class="text-[10px] font-extrabold px-2.5 py-1 rounded-lg ${badgeClass} shrink-0">${ddayLabel}</span>
+                `;
+
+                card.addEventListener('click', () => {
+                    const [y, m, d] = dateStr.split('-').map(Number);
+                    state.currentDate = new Date(y, m - 1, 1);
+                    renderThreeMonths();
+                    const lunar = getLunarDate(y, m, d);
+                    openMemoModal(y, m - 1, d, lunar);
+                });
+
+                ddayContainer.appendChild(card);
+            });
+
+            if (ddayCount === 0) {
+                ddayContainer.innerHTML = `<div class="text-center text-[11px] text-slate-400 dark:text-slate-550 py-4">지정된 D-Day 일정이 없습니다.</div>`;
+            }
+        }
+
+        /**
+         * -------------------------------------------------------------
+         * 6. 인터랙티브 메모 모달 제어 및 도구 로직
+         * -------------------------------------------------------------
+         */
+        const memoModal = document.getElementById('memoModal');
+        const memoInput = document.getElementById('memoInput');
+        const ddayCheckbox = document.getElementById('ddayCheckbox');
+        const repeatCheckbox = document.getElementById('repeatCheckbox');
+        const repeatOptionsContainer = document.getElementById('repeatOptionsContainer');
+        const toolsTargetDate = document.getElementById('toolsTargetDate');
+        const btnAddToGoogleCalendar = document.getElementById('btnAddToGoogleCalendar');
+
+        // 반복 설정 체크 박스 토글 연동
+        repeatCheckbox.addEventListener('change', (e) => {
+            if (e.target.checked) {
+                repeatOptionsContainer.classList.remove('hidden');
+            } else {
+                repeatOptionsContainer.classList.add('hidden');
+            }
+        });
+
+        const categoryButtons = document.querySelectorAll('.select-btn-color');
+        categoryButtons.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const color = e.target.getAttribute('data-color');
+                setCategoryColorSelection(color);
+            });
+        });
+
+        function setCategoryColorSelection(color) {
+            state.selectedColor = color;
+            categoryButtons.forEach(btn => {
+                const btnColor = btn.getAttribute('data-color');
+                if (btnColor === color) {
+                    btn.className = btn.className.replace('bg-white/10', '').replace('opacity-60', '');
+                    btn.classList.add('ring-2', 'ring-offset-2', 'ring-indigo-500');
+                } else {
+                    btn.classList.remove('ring-2', 'ring-offset-2', 'ring-indigo-500');
+                }
+            });
+        }
+
+        function openMemoModal(y, m, d, lunar) {
+            const dateStr = `${y}-${String(m + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+            state.selectedDate = dateStr;
+
+            document.getElementById('modalDateTitle').innerText = `${y}년 ${m + 1}월 ${d}일`;
+            document.getElementById('modalLunarSubtitle').innerText = `음력 ${lunar.year}년 ${lunar.formatted}${lunar.isLeap ? ' (윤달)' : ''}`;
+            
+            toolsTargetDate.value = dateStr;
+
+            // 기존 메모 복원 로직
+            let existingMemo = state.memos[dateStr];
+            let isItemFromRepeatedMatch = false;
+
+            // 고정 메모가 없으면 해당 날짜에 대응하는 반복 일정 역복원
+            if (!existingMemo) {
+                const repeatedMatch = getMatchingRepeatedMemo(dateStr);
+                if (repeatedMatch) {
+                    existingMemo = repeatedMatch;
+                    isItemFromRepeatedMatch = true;
+                    // 원본 저장 정보 추적 세팅
+                    state.selectedDate = repeatedMatch.originalDate;
+                }
+            }
+
+            if (existingMemo) {
+                if (typeof existingMemo === 'string') {
+                    memoInput.value = existingMemo;
+                    setCategoryColorSelection('amber');
+                    ddayCheckbox.checked = false;
+                    repeatCheckbox.checked = false;
+                    repeatOptionsContainer.classList.add('hidden');
+                } else {
+                    memoInput.value = existingMemo.text || '';
+                    setCategoryColorSelection(existingMemo.color || 'blue');
+                    ddayCheckbox.checked = !!existingMemo.isDDay;
+                    
+                    if (existingMemo.repeat) {
+                        repeatCheckbox.checked = true;
+                        repeatOptionsContainer.classList.remove('hidden');
+                        document.querySelector(`input[name="repeatType"][value="${existingMemo.repeat.type}"]`).checked = true;
+                    } else {
+                        repeatCheckbox.checked = false;
+                        repeatOptionsContainer.classList.add('hidden');
+                    }
+                }
+            } else {
+                memoInput.value = '';
+                setCategoryColorSelection('blue'); 
+                ddayCheckbox.checked = false;
+                repeatCheckbox.checked = false;
+                repeatOptionsContainer.classList.add('hidden');
+            }
+
+            memoModal.classList.remove('hidden');
+            setTimeout(() => {
+                memoModal.classList.remove('opacity-0');
+                memoModal.querySelector('div').classList.remove('scale-95');
+            }, 50);
+        }
+
+        function closeMemoModal() {
+            memoModal.classList.add('opacity-0');
+            memoModal.querySelector('div').classList.add('scale-95');
+            setTimeout(() => {
+                memoModal.classList.add('hidden');
+            }, 200);
+        }
+
+        function saveMemo() {
+            if (!state.selectedDate) return;
+            const content = memoInput.value.trim();
+
+            if (content) {
+                const [y, m, d] = state.selectedDate.split('-').map(Number);
+                
+                let repeatConfig = null;
+                if (repeatCheckbox.checked) {
+                    const rType = document.querySelector('input[name="repeatType"]:checked').value;
+                    if (rType === 'solar') {
+                        // 양력 기준 반복 정보 인코딩
+                        repeatConfig = {
+                            type: 'solar',
+                            originMonth: m,
+                            originDay: d
+                        };
+                    } else if (rType === 'lunar') {
+                        // 음력 기준 반복 정보 인코딩
+                        const lunar = getLunarDate(y, m, d);
+                        repeatConfig = {
+                            type: 'lunar',
+                            originMonth: lunar.month,
+                            originDay: lunar.day
+                        };
+                    }
+                }
+
+                state.memos[state.selectedDate] = {
+                    text: content,
+                    color: state.selectedColor,
+                    isDDay: ddayCheckbox.checked,
+                    repeat: repeatConfig
+                };
+            } else {
+                delete state.memos[state.selectedDate];
+            }
+
+            localStorage.setItem(MEMO_STORAGE_KEY, JSON.stringify(state.memos));
+            renderThreeMonths();
+            closeMemoModal();
+            showToast('일정이 저장되었습니다.');
+        }
+
+        function deleteMemo() {
+            if (!state.selectedDate) return;
+            if (state.memos[state.selectedDate]) {
+                delete state.memos[state.selectedDate];
+                localStorage.setItem(MEMO_STORAGE_KEY, JSON.stringify(state.memos));
+                renderThreeMonths();
+                closeMemoModal();
+                showToast('일정이 삭제되었습니다.');
+            } else {
+                closeMemoModal();
+            }
+        }
+
+        btnAddToGoogleCalendar.addEventListener('click', () => {
+            const content = memoInput.value.trim();
+            if (!content) {
+                showToast('등록할 일정 내용이 존재하지 않습니다.');
+                return;
+            }
+            if (!state.selectedDate) return;
+
+            const plainDate = state.selectedDate.replace(/-/g, '');
+            const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(content)}&dates=${plainDate}/${plainDate}&details=${encodeURIComponent('스마트 3분할 캘린더에서 연동된 일정입니다.')}`;
+            
+            window.open(googleCalendarUrl, '_blank');
+        });
+
+        document.getElementById('btnCopyMemo').addEventListener('click', () => {
+            const targetDateVal = toolsTargetDate.value;
+            if (!targetDateVal) return showToast('복사 대상 날짜를 입력하세요.');
+            
+            const currentContent = memoInput.value.trim();
+            if (!currentContent) return showToast('복사할 메모 내용이 없습니다.');
+
+            state.memos[targetDateVal] = {
+                text: currentContent,
+                color: state.selectedColor,
+                isDDay: ddayCheckbox.checked,
+                repeat: repeatCheckbox.checked ? state.memos[state.selectedDate]?.repeat : null
+            };
+
+            localStorage.setItem(MEMO_STORAGE_KEY, JSON.stringify(state.memos));
+            renderThreeMonths();
+            closeMemoModal();
+            showToast(`${targetDateVal}로 일정이 복사되었습니다.`);
+        });
+
+        document.getElementById('btnMoveMemo').addEventListener('click', () => {
+            const targetDateVal = toolsTargetDate.value;
+            if (!targetDateVal) return showToast('이동 대상 날짜를 입력하세요.');
+            if (targetDateVal === state.selectedDate) return showToast('동일한 날짜로는 이동할 수 없습니다.');
+
+            const currentContent = memoInput.value.trim();
+            if (!currentContent) return showToast('이동할 메모 내용이 없습니다.');
+
+            state.memos[targetDateVal] = {
+                text: currentContent,
+                color: state.selectedColor,
+                isDDay: ddayCheckbox.checked,
+                repeat: repeatCheckbox.checked ? state.memos[state.selectedDate]?.repeat : null
+            };
+            delete state.memos[state.selectedDate];
+
+            localStorage.setItem(MEMO_STORAGE_KEY, JSON.stringify(state.memos));
+            renderThreeMonths();
+            closeMemoModal();
+            showToast(`${targetDateVal}로 일정이 이동되었습니다.`);
+        });
+
+
+        /**
+         * -------------------------------------------------------------
+         * 7. 백업 연동 및 로컬 파일 처리 (JSON & ICS 구글/삼성 연동)
+         * -------------------------------------------------------------
+         */
+        document.getElementById('btnLocalExport').addEventListener('click', () => {
+            try {
+                const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(state.memos, null, 2));
+                const downloadAnchor = document.createElement('a');
+                downloadAnchor.setAttribute("href", dataStr);
+                
+                const now = new Date();
+                const timestamp = `${now.getFullYear()}${String(now.getMonth()+1).padStart(2,'0')}${String(now.getDate()).padStart(2,'0')}`;
+                downloadAnchor.setAttribute("download", `calendar_backup_${timestamp}.json`);
+                
+                document.body.appendChild(downloadAnchor);
+                downloadAnchor.click();
+                downloadAnchor.remove();
+                showToast('로컬 백업 완료');
+            } catch (err) {
+                showToast('백업 중 오류가 발생했습니다.');
+            }
+        });
+
+        document.getElementById('btnLocalImport').addEventListener('click', () => {
+            document.getElementById('localFileImport').click();
+        });
+
+        document.getElementById('localFileImport').addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                try {
+                    const importedMemos = JSON.parse(event.target.result);
+                    if (typeof importedMemos === 'object' && importedMemos !== null) {
+                        state.memos = { ...state.memos, ...importedMemos };
+                        localStorage.setItem(MEMO_STORAGE_KEY, JSON.stringify(state.memos));
+                        renderThreeMonths();
+                        showToast('로컬 일정을 성공적으로 병합 통합했습니다.');
+                    } else {
+                        showToast('올바르지 않은 백업 파일 형식입니다.');
+                    }
+                } catch (err) {
+                    showToast('파일 해석에 실패했습니다.');
+                }
+            };
+            reader.readAsText(file);
+        });
+
+        document.getElementById('btnIcsExport').addEventListener('click', () => {
+            try {
+                let icsContent = "BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//SmartCalendar//Business Calendar//KO\r\nCALSCALE:GREGORIAN\r\nMETHOD:PUBLISH\r\n";
+                
+                Object.keys(state.memos).forEach(dateStr => {
+                    const memoObj = state.memos[dateStr];
+                    const mText = typeof memoObj === 'string' ? memoObj : memoObj.text;
+                    if (!mText) return;
+
+                    const formattedDate = dateStr.replace(/-/g, '');
+                    
+                    icsContent += "BEGIN:VEVENT\r\n";
+                    icsContent += `DTSTART;VALUE=DATE:${formattedDate}\r\n`;
+                    icsContent += `DTEND;VALUE=DATE:${formattedDate}\r\n`;
+                    icsContent += `SUMMARY:${mText.replace(/\n/g, " ")}\r\n`;
+                    icsContent += "DESCRIPTION:스마트 3분할 캘린더에서 내보낸 업무 일정입니다.\\n\r\n";
+                    icsContent += "STATUS:CONFIRMED\r\n";
+                    icsContent += "END:VEVENT\r\n";
+                });
+
+                icsContent += "END:VCALENDAR\r\n";
+
+                const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                
+                const now = new Date();
+                const timestamp = `${now.getFullYear()}${String(now.getMonth()+1).padStart(2,'0')}${String(now.getDate()).padStart(2,'0')}`;
+                link.setAttribute("download", `google_samsung_sync_${timestamp}.ics`);
+                
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                showToast('구글/삼성 연동용 ICS 파일을 내보냈습니다.');
+            } catch (err) {
+                showToast('ICS 변환 중 오류가 발생했습니다.');
+            }
+        });
+
+        document.getElementById('btnIcsImport').addEventListener('click', () => {
+            document.getElementById('icsFileImport').click();
+        });
+
+        document.getElementById('icsFileImport').addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                try {
+                    const text = event.target.result;
+                    const lines = text.split(/\r?\n/);
+                    
+                    let currentEvent = null;
+                    let importedCount = 0;
+
+                    for (let i = 0; i < lines.length; i++) {
+                        const line = lines[i].trim();
+                        if (line === "BEGIN:VEVENT") {
+                            currentEvent = {};
+                        } else if (line === "END:VEVENT" && currentEvent) {
+                            if (currentEvent.start && currentEvent.summary) {
+                                const y = currentEvent.start.substring(0, 4);
+                                const m = currentEvent.start.substring(4, 6);
+                                const d = currentEvent.start.substring(6, 8);
+                                const targetDateStr = `${y}-${m}-${d}`;
+
+                                if (y && m && d) {
+                                    state.memos[targetDateStr] = {
+                                        text: currentEvent.summary,
+                                        color: 'blue', 
+                                        isDDay: false
+                                    };
+                                    importedCount++;
+                                }
+                            }
+                            currentEvent = null;
+                        } else if (currentEvent) {
+                            if (line.startsWith("DTSTART")) {
+                                const parts = line.split(":");
+                                const dateVal = parts[parts.length - 1]; 
+                                currentEvent.start = dateVal.substring(0, 8);
+                            } else if (line.startsWith("SUMMARY")) {
+                                const parts = line.split(":");
+                                currentEvent.summary = parts.slice(1).join(":");
+                            }
+                        }
+                    }
+
+                    if (importedCount > 0) {
+                        localStorage.setItem(MEMO_STORAGE_KEY, JSON.stringify(state.memos));
+                        renderThreeMonths();
+                        showToast(`구글/삼성에서 내보낸 일정 ${importedCount}건을 통합 완료했습니다!`);
+                    } else {
+                        showToast('가져올 일정을 찾을 수 없거나 올바르지 않은 ICS 구조입니다.');
+                    }
+                } catch (err) {
+                    showToast('ICS 달력 파싱 과정 중 기술적인 문제가 발생했습니다.');
+                }
+            };
+            reader.readAsText(file);
+        });
+
+        document.getElementById('btnPrint').addEventListener('click', () => {
+            window.print();
+        });
+
+        /**
+         * -------------------------------------------------------------
+         * 8. GitHub API 백업 연동 모듈
+         * -------------------------------------------------------------
+         */
+        const backupModal = document.getElementById('backupModal');
+        const backupStatusMsg = document.getElementById('backupStatusMsg');
+
+        function loadGitConfig() {
+            const saved = localStorage.getItem(GIT_CONFIG_STORAGE_KEY);
+            if (saved) {
+                try {
+                    state.gitConfig = JSON.parse(saved);
+                    document.getElementById('gitToken').value = state.gitConfig.token || '';
+                    document.getElementById('gitOwner').value = state.gitConfig.owner || '';
+                    document.getElementById('gitRepo').value = state.gitConfig.repo || '';
+                } catch (e) {}
+            }
+        }
+
+        function openBackupModal() {
+            backupModal.classList.remove('hidden');
+            backupStatusMsg.className = "hidden";
+            setTimeout(() => {
+                backupModal.classList.remove('opacity-0');
+                backupModal.querySelector('div').classList.remove('scale-95');
+            }, 50);
+        }
+
+        function closeBackupModal() {
+            backupModal.classList.add('opacity-0');
+            backupModal.querySelector('div').classList.add('scale-95');
+            setTimeout(() => {
+                backupModal.classList.add('hidden');
+            }, 200);
+        }
+
+        function saveGitConfigToStorage() {
+            state.gitConfig.token = document.getElementById('gitToken').value.trim();
+            state.gitConfig.owner = document.getElementById('gitOwner').value.trim();
+            state.gitConfig.repo = document.getElementById('gitRepo').value.trim();
+
+            localStorage.setItem(GIT_CONFIG_STORAGE_KEY, JSON.stringify(state.gitConfig));
+            showToast('백업 구성 설정이 로컬에 보관되었습니다.');
+        }
+
+        function setBackupStatus(msg, type = 'info') {
+            backupStatusMsg.className = `p-3 rounded-xl text-xs font-semibold block ${
+                type === 'success' ? 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800/60' :
+                type === 'error' ? 'bg-rose-50 dark:bg-rose-950/40 text-rose-800 dark:text-rose-300 border border-rose-200 dark:border-rose-800/60' :
+                'bg-blue-50 dark:bg-blue-950/40 text-blue-800 dark:text-blue-300 border border-blue-200 dark:border-blue-800/60'
+            }`;
+            backupStatusMsg.innerText = msg;
+        }
+
+        async function backupToGitHub() {
+            const token = document.getElementById('gitToken').value.trim();
+            const owner = document.getElementById('gitOwner').value.trim();
+            const repo = document.getElementById('gitRepo').value.trim();
+
+            if (!token || !owner || !repo) {
+                setBackupStatus('GitHub 연동 정보를 기입해 주십시오.', 'error');
+                return;
+            }
+
+            setBackupStatus('데이터 업로드 중...', 'info');
+
+            const url = `https://api.github.com/repos/${owner}/${repo}/contents/${state.gitConfig.path}`;
+            const fileContent = btoa(unescape(encodeURIComponent(JSON.stringify(state.memos, null, 2))));
+            
+            let sha = null;
+            try {
+                const res = await fetch(url, {
+                    headers: { 'Authorization': `token ${token}` }
+                });
+                if (res.ok) {
+                    const data = await res.json();
+                    sha = data.sha;
+                }
+            } catch (e) {}
+
+            const payload = {
+                message: `비즈니스 캘린더 통합 백업 (${new Date().toISOString()})`,
+                content: fileContent
+            };
+            if (sha) payload.sha = sha;
+
+            try {
+                const putRes = await fetch(url, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `token ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                if (putRes.ok) {
+                    setBackupStatus('성공적으로 클라우드 백업이 완료되었습니다.', 'success');
+                    showToast('GitHub 백업 성공!');
+                } else {
+                    const errData = await putRes.json();
+                    throw new Error(errData.message || 'PUT 오류');
+                }
+            } catch (err) {
+                setBackupStatus(`백업 실패: ${err.message}`, 'error');
+            }
+        }
+
+        async function loadFromGitHub() {
+            const token = document.getElementById('gitToken').value.trim();
+            const owner = document.getElementById('gitOwner').value.trim();
+            const repo = document.getElementById('gitRepo').value.trim();
+
+            if (!token || !owner || !repo) {
+                setBackupStatus('가져올 타겟 저장소 정보를 채워 주십시오.', 'error');
+                return;
+            }
+
+            setBackupStatus('클라우드 탐지 중...', 'info');
+            const url = `https://api.github.com/repos/${owner}/${repo}/contents/${state.gitConfig.path}`;
+
+            try {
+                const res = await fetch(url, {
+                    headers: { 'Authorization': `token ${token}` }
+                });
+
+                if (res.status === 404) {
+                    setBackupStatus('백업 파일이 저장소에 존재하지 않습니다.', 'error');
+                    return;
+                }
+
+                if (res.ok) {
+                    const data = await res.json();
+                    const decodedText = decodeURIComponent(escape(atob(data.content)));
+                    const parsedMemos = JSON.parse(decodedText);
+
+                    state.memos = { ...state.memos, ...parsedMemos };
+                    localStorage.setItem(MEMO_STORAGE_KEY, JSON.stringify(state.memos));
+                    
+                    renderThreeMonths();
+                    setBackupStatus('클라우드 병합 완료', 'success');
+                    showToast('클라우드 동기화 성공');
+                } else {
+                    const errData = await res.json();
+                    setBackupStatus(`가져오기 실패: ${errData.message}`, 'error');
+                }
+            } catch (err) {
+                setBackupStatus(`네트워크 연동 오류: ${err.message}`, 'error');
+            }
+        }
+
+
+        /**
+         * -------------------------------------------------------------
+         * 9. 실무 특화: 테마 제어 시스템 (다크모드 지원 완벽 복원 및 검증)
+         * -------------------------------------------------------------
+         */
+        const btnThemeToggle = document.getElementById('btnThemeToggle');
+        
+        btnThemeToggle.addEventListener('click', () => {
+            const isDark = document.documentElement.classList.contains('dark');
+            if (isDark) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+                showToast('라이트 모드로 전환되었습니다.');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+                showToast('다크 모드로 전환되었습니다.');
+            }
+        });
+
+
+        /**
+         * -------------------------------------------------------------
+         * 10. 보조 유틸리티 기능 및 제스처, 이벤트 리스너 바인딩
+         * -------------------------------------------------------------
+         */
+        function showToast(text) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastText').innerText = text;
+            toast.classList.remove('opacity-0');
+            toast.classList.add('opacity-100');
+            
+            setTimeout(() => {
+                toast.classList.remove('opacity-100');
+                toast.classList.add('opacity-0');
+            }, 3000);
+        }
+
+        document.getElementById('btnPrevMonth').addEventListener('click', () => {
+            state.currentDate.setMonth(state.currentDate.getMonth() - 1);
+            renderThreeMonths();
+        });
+
+        document.getElementById('btnNextMonth').addEventListener('click', () => {
+            state.currentDate.setMonth(state.currentDate.getMonth() + 1);
+            renderThreeMonths();
+        });
+
+        document.getElementById('btnHome').addEventListener('click', () => {
+            state.currentDate = new Date();
+            renderThreeMonths();
+            showToast('오늘로 복귀했습니다.');
+        });
+
+        document.getElementById('btnCloseMemo').addEventListener('click', closeMemoModal);
+        document.getElementById('btnSaveMemo').addEventListener('click', saveMemo);
+        document.getElementById('btnDeleteMemo').addEventListener('click', deleteMemo);
+
+        document.getElementById('btnOpenBackup').addEventListener('click', openBackupModal);
+        document.getElementById('btnCloseBackup').addEventListener('click', closeBackupModal);
+        document.getElementById('btnSaveGitConfig').addEventListener('click', saveGitConfigToStorage);
+        document.getElementById('btnSaveToGit').addEventListener('click', backupToGitHub);
+        document.getElementById('btnLoadFromGit').addEventListener('click', loadFromGitHub);
+
+        window.addEventListener('click', (e) => {
+            if (e.target === memoModal) closeMemoModal();
+            if (e.target === backupModal) closeBackupModal();
+        });
+
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        document.addEventListener('touchstart', (e) => {
+            if (!memoModal.classList.contains('hidden') || !backupModal.classList.contains('hidden')) return;
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+
+        document.addEventListener('touchend', (e) => {
+            if (!memoModal.classList.contains('hidden') || !backupModal.classList.contains('hidden')) return;
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipeGesture();
+        }, { passive: true });
+
+        function handleSwipeGesture() {
+            const threshold = 100;
+            const difference = touchStartX - touchEndX;
+
+            if (Math.abs(difference) > threshold) {
+                if (difference > 0) {
+                    state.currentDate.setMonth(state.currentDate.getMonth() + 1);
+                    renderThreeMonths();
+                    showToast('다음 달로 전환');
+                } else {
+                    state.currentDate.setMonth(state.currentDate.getMonth() - 1);
+                    renderThreeMonths();
+                    showToast('이전 달로 전환');
+                }
+            }
+        }
+
+        /**
+         * -------------------------------------------------------------
+         * 11. 마이그레이션 및 시스템 로딩
+         * -------------------------------------------------------------
+         */
+        window.onload = function() {
+            const oldStorage = localStorage.getItem('SMART_CALENDAR_MEMOS_v1');
+            const newStorage = localStorage.getItem(MEMO_STORAGE_KEY);
+
+            if (newStorage) {
+                try {
+                    state.memos = JSON.parse(newStorage);
+                } catch(e) {}
+            } else if (oldStorage) {
+                try {
+                    const parsedOld = JSON.parse(oldStorage);
+                    Object.keys(parsedOld).forEach(k => {
+                        state.memos[k] = {
+                            text: typeof parsedOld[k] === 'string' ? parsedOld[k] : parsedOld[k].text,
+                            color: 'amber',
+                            isDDay: false,
+                            repeat: null
+                        };
+                    });
+                    localStorage.setItem(MEMO_STORAGE_KEY, JSON.stringify(state.memos));
+                } catch(e) {}
+            }
+
+            const isExpandedSaved = localStorage.getItem('CALENDAR_EXPANDED') === 'true';
+            applyLayoutExpansion(isExpandedSaved);
+
+            loadGitConfig();
+            renderThreeMonths();
+
+            // PWA Manifest 동적 빌딩
+            try {
+                const appIcon = document.querySelector('link[rel="apple-touch-icon"]').getAttribute('href');
+                const manifestObj = {
+                    name: "3분할 스마트 실무 음력 캘린더",
+                    short_name: "스마트캘린더",
+                    start_url: window.location.href,
+                    display: "standalone",
+                    background_color: "#4f46e5",
+                    theme_color: "#4f46e5",
+                    icons: [
+                        {
+                            src: appIcon,
+                            sizes: "512x512",
+                            type: "image/svg+xml",
+                            purpose: "any maskable"
+                        }
+                    ]
+                };
+                const manifestStr = JSON.stringify(manifestObj);
+                const blob = new Blob([manifestStr], { type: 'application/json' });
+                const manifestURL = URL.createObjectURL(blob);
+                const manifestLink = document.createElement('link');
+                manifestLink.rel = 'manifest';
+                manifestLink.href = manifestURL;
+                document.head.appendChild(manifestLink);
+            } catch (e) {
+                console.warn("PWA Manifest 구축 실패", e);
+            }
+        };
+    </script>
+</body>
+</html>
